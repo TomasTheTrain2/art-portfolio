@@ -117,10 +117,6 @@ function renderWritingList(data) {
   }).join('');
 }
 
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // Resolves an entry's real aspect ratio by letting the browser load it
 // (images) or read its metadata (video), so the collage layout can size
 // each tile to its true shape instead of cropping to a fixed cell. Always
@@ -164,42 +160,54 @@ function loadAspectRatio(entry) {
   });
 }
 
-// Splits `aspects` into every possible sequence of contiguous rows (there
-// are only 2^(n-1) of these for the 3-6 tiles the collage ever holds) and,
-// for each, computes the row heights that make every row's tiles exactly
-// fill `containerW` — this is the standard "justified gallery" math: a row
-// of tiles with aspect ratios a_i, given height h, has total width
-// h * sum(a_i), so solving for a target width W gives h = W / sum(a_i).
-// Among partitions whose total height fits within containerH (no scroll),
+// Every way to split `n` indices into non-empty groups (rows) — the Bell
+// numbers, so 203 groupings at most for the 6 tiles the collage ever holds.
+// Grouping isn't restricted to adjacent picks: which images end up sharing
+// a row is exactly the lever that determines how much total row height a
+// grouping produces, so considering every grouping (not just contiguous
+// runs of the shuffle order) is what finds a good height match.
+function allGroupings(n) {
+  const results = [];
+  function helper(i, groups) {
+    if (i === n) {
+      results.push(groups.map((g) => g.slice()));
+      return;
+    }
+    for (const g of groups) {
+      g.push(i);
+      helper(i + 1, groups);
+      g.pop();
+    }
+    groups.push([i]);
+    helper(i + 1, groups);
+    groups.pop();
+  }
+  helper(0, []);
+  return results;
+}
+
+// For each grouping, computes the row heights that make every row's tiles
+// exactly fill `containerW` — this is the standard "justified gallery"
+// math: a row of tiles with aspect ratios a_i, given height h, has total
+// width h * sum(a_i), so solving for a target width W gives h = W / sum(a_i).
+// Among groupings whose total height fits within containerH (no scroll),
 // picks the one that fills it most fully. If none fit — only possible with
-// unusually extreme aspect ratios — falls back to the shortest partition
+// unusually extreme aspect ratios — falls back to the shortest grouping
 // and reports a uniform scale-down so it still fits without cropping.
-function pickCollagePartition(aspects, containerW, containerH) {
-  const n = aspects.length;
+function pickCollageGrouping(aspects, containerW, containerH) {
   let bestFit = null;
   let globalMin = null;
 
-  const totalMasks = 1 << (n - 1);
-  for (let mask = 0; mask < totalMasks; mask++) {
-    const breaks = [];
-    let start = 0;
-    for (let i = 0; i < n - 1; i++) {
-      if (mask & (1 << i)) {
-        breaks.push([start, i + 1]);
-        start = i + 1;
-      }
-    }
-    breaks.push([start, n]);
-
+  for (const groups of allGroupings(aspects.length)) {
     let totalH = 0;
-    const rowHeights = breaks.map(([s, e]) => {
-      const sumAspect = aspects.slice(s, e).reduce((a, b) => a + b, 0);
+    const rowHeights = groups.map((indices) => {
+      const sumAspect = indices.reduce((sum, i) => sum + aspects[i], 0);
       const h = containerW / sumAspect;
       totalH += h;
       return h;
     });
 
-    const candidate = { rows: breaks, rowHeights, totalH };
+    const candidate = { groups, rowHeights, totalH };
     if (totalH <= containerH && (!bestFit || totalH > bestFit.totalH)) {
       bestFit = candidate;
     }
@@ -210,24 +218,70 @@ function pickCollagePartition(aspects, containerW, containerH) {
 
   const chosen = bestFit || globalMin;
   const scale = bestFit ? 1 : containerH / chosen.totalH;
-  return { rows: chosen.rows, rowHeights: chosen.rowHeights, scale };
+  return { groups: chosen.groups, rowHeights: chosen.rowHeights, scale };
 }
 
 // Builds the final pixel geometry for each row/tile. Each row's tiles get
 // integer widths that sum exactly to the row's own width (the last tile
 // absorbs any rounding remainder) so nothing leaves a sub-pixel gap.
 function buildCollageLayout(aspects, containerW, containerH) {
-  const { rows, rowHeights, scale } = pickCollagePartition(aspects, containerW, containerH);
+  const { groups, rowHeights, scale } = pickCollageGrouping(aspects, containerW, containerH);
   const rowTargetWidth = Math.round(containerW * scale);
 
-  return rows.map(([start, end], i) => {
+  return groups.map((indices, i) => {
     const rowHeight = rowHeights[i] * scale;
-    const rowAspects = aspects.slice(start, end);
-    const widths = rowAspects.map((a) => Math.round(a * rowHeight));
+    const widths = indices.map((idx) => Math.round(aspects[idx] * rowHeight));
     const remainder = rowTargetWidth - widths.reduce((a, b) => a + b, 0);
     widths[widths.length - 1] += remainder;
-    return { start, end, height: Math.round(rowHeight), widths };
+    return { indices, height: Math.round(rowHeight), widths };
   });
+}
+
+function combinations(arr, k) {
+  const results = [];
+  function helper(start, combo) {
+    if (combo.length === k) {
+      results.push(combo.slice());
+      return;
+    }
+    for (let i = start; i < arr.length; i++) {
+      combo.push(arr[i]);
+      helper(i + 1, combo);
+      combo.pop();
+    }
+  }
+  helper(0, []);
+  return results;
+}
+
+// With a wide viewport and only 3-6 images, a single justified row is often
+// the tallest grouping that still fits — leaving the rest of the viewport
+// height unused. Which subset of the loaded candidates (and how many of
+// them) is shown turns out to matter as much as how they're grouped into
+// rows, so this tries every subset size from 3 up to however many were
+// loaded, and every subset of that size, scoring each by how much of
+// containerH its best grouping fills. Cheap: at most a few thousand tiny
+// evaluations for 6 candidates, and it only runs on page load and resize.
+function pickBestCollageSelection(loaded, containerW, containerH) {
+  const n = loaded.length;
+  const allIndices = loaded.map((_, i) => i);
+  const minCount = Math.min(COLLAGE_MIN_TILES, n);
+
+  let best = null;
+  for (let k = minCount; k <= n; k++) {
+    for (const indices of combinations(allIndices, k)) {
+      const aspects = indices.map((i) => loaded[i].aspect);
+      const { rowHeights, scale } = pickCollageGrouping(aspects, containerW, containerH);
+      const totalH = rowHeights.reduce((a, b) => a + b, 0) * scale;
+      const fits = scale === 1;
+      const better = !best
+        || (fits && !best.fits)
+        || (fits === best.fits && totalH > best.totalH);
+      if (better) best = { indices, totalH, fits };
+    }
+  }
+
+  return best.indices.map((i) => loaded[i]);
 }
 
 function buildCollageTile(entry, mediaEl, width) {
@@ -273,7 +327,8 @@ function renderCollageLayout(grid, loaded) {
   const containerW = document.documentElement.clientWidth;
   const containerH = window.innerHeight - navH;
 
-  const aspects = loaded.map((l) => l.aspect);
+  const selected = pickBestCollageSelection(loaded, containerW, containerH);
+  const aspects = selected.map((l) => l.aspect);
   const rows = buildCollageLayout(aspects, containerW, containerH);
 
   grid.className = 'home-collage';
@@ -282,10 +337,10 @@ function renderCollageLayout(grid, loaded) {
     const rowEl = document.createElement('div');
     rowEl.className = 'collage-row';
     rowEl.style.height = row.height + 'px';
-    for (let i = row.start; i < row.end; i++) {
-      const { entry, mediaEl } = loaded[i];
-      rowEl.appendChild(buildCollageTile(entry, mediaEl, row.widths[i - row.start]));
-    }
+    row.indices.forEach((idx, i) => {
+      const { entry, mediaEl } = selected[idx];
+      rowEl.appendChild(buildCollageTile(entry, mediaEl, row.widths[i]));
+    });
     grid.appendChild(rowEl);
   });
 }
@@ -297,11 +352,14 @@ async function renderHomeCollage(data) {
   const pool = data.filter((e) => e.section === 'films' || e.section === 'visual-art');
   if (!pool.length) return;
 
-  const count = Math.min(randomInt(COLLAGE_MIN_TILES, COLLAGE_MAX_TILES), pool.length);
+  // Loads up to COLLAGE_MAX_TILES candidates; renderCollageLayout then picks
+  // whichever subset (3 to however many loaded) and grouping best fills the
+  // viewport, so the fetched pool is a ceiling, not the final tile count.
+  const candidateCount = Math.min(COLLAGE_MAX_TILES, pool.length);
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  const picks = shuffled.slice(0, count);
+  const candidates = shuffled.slice(0, candidateCount);
 
-  const loaded = await Promise.all(picks.map(loadAspectRatio));
+  const loaded = await Promise.all(candidates.map(loadAspectRatio));
   renderCollageLayout(grid, loaded);
 
   let resizeTimer = null;
