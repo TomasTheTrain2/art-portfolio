@@ -24,45 +24,130 @@
 
 <main>
 
-  <section class="page-title">
-    <div class="wrap">
-      <h1>Visual Art</h1>
-      <p>Paintings, drawings, and mixed media pieces</p>
-    </div>
-  </section>
+  <div class="medium-tabs" role="tablist">
+    <button type="button" class="tab-btn" data-target="photography" role="tab" aria-selected="false">Photography</button>
+    <button type="button" class="tab-btn" data-target="painting" role="tab" aria-selected="false">Painting</button>
+    <button type="button" class="tab-btn is-active" data-target="drawing" role="tab" aria-selected="true">Drawing &amp; Illustration</button>
+    <button type="button" class="tab-btn" data-target="digital" role="tab" aria-selected="false">Digital Art</button>
+  </div>
 
-  <section class="entry-list">
+  <div class="collage-grid" data-medium="photography" hidden>
 
-    <article class="entry">
-      <div class="entry-thumb">IMAGE PLACEHOLDER</div>
-      <div class="entry-info">
-        <h3>Placeholder Piece One</h3>
-        <div class="entry-meta">
-          <span>Oil on Canvas</span>
-          <span>2024</span>
-        </div>
-      </div>
-    </article>
+    <button type="button" class="collage-item ar-portrait tone-2" data-tone="tone-2" data-ar="3 / 4"
+      data-title="Placeholder Photograph One" data-meta="Photography · 2024">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Photograph One</span>
+        <span class="cap-meta">Photography · 2024</span>
+      </span>
+    </button>
 
-    <article class="entry">
-      <div class="entry-thumb">IMAGE PLACEHOLDER</div>
-      <div class="entry-info">
-        <h3>Placeholder Piece Two</h3>
-        <div class="entry-meta">
-          <span>Mixed Media</span>
-          <span>2023</span>
-        </div>
-      </div>
-    </article>
+    <button type="button" class="collage-item ar-wide tone-5" data-tone="tone-5" data-ar="16 / 9"
+      data-title="Placeholder Photograph Two" data-meta="Photography · 2023">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Photograph Two</span>
+        <span class="cap-meta">Photography · 2023</span>
+      </span>
+    </button>
 
-  </section>
+    <button type="button" class="collage-item ar-square tone-1" data-tone="tone-1" data-ar="1 / 1"
+      data-title="Placeholder Photograph Three" data-meta="Photography · 2022">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Photograph Three</span>
+        <span class="cap-meta">Photography · 2022</span>
+      </span>
+    </button>
+
+  </div>
+
+  <div class="collage-grid" data-medium="painting" hidden>
+
+    <button type="button" class="collage-item ar-landscape tone-3" data-tone="tone-3" data-ar="4 / 3"
+      data-title="Placeholder Painting One" data-meta="Oil on Canvas · 2024">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Painting One</span>
+        <span class="cap-meta">Oil on Canvas · 2024</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-portrait tone-6" data-tone="tone-6" data-ar="3 / 4"
+      data-title="Placeholder Painting Two" data-meta="Acrylic on Panel · 2023">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Painting Two</span>
+        <span class="cap-meta">Acrylic on Panel · 2023</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-square tone-4" data-tone="tone-4" data-ar="1 / 1"
+      data-title="Placeholder Painting Three" data-meta="Oil on Canvas · 2022">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Painting Three</span>
+        <span class="cap-meta">Oil on Canvas · 2022</span>
+      </span>
+    </button>
+
+  </div>
+
+  <div class="collage-grid is-active" data-medium="drawing">
+
+    <button type="button" class="collage-item ar-tall tone-1" data-tone="tone-1" data-ar="2 / 3"
+      data-title="Placeholder Drawing One" data-meta="Graphite on Paper · 2024">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Drawing One</span>
+        <span class="cap-meta">Graphite on Paper · 2024</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-wide tone-2" data-tone="tone-2" data-ar="16 / 9"
+      data-title="Placeholder Drawing Two" data-meta="Ink Illustration · 2023">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Drawing Two</span>
+        <span class="cap-meta">Ink Illustration · 2023</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-square tone-5" data-tone="tone-5" data-ar="1 / 1"
+      data-title="Placeholder Illustration Three" data-meta="Digital Ink · 2023">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Illustration Three</span>
+        <span class="cap-meta">Digital Ink · 2023</span>
+      </span>
+    </button>
+
+  </div>
+
+  <div class="collage-grid" data-medium="digital" hidden>
+
+    <button type="button" class="collage-item ar-portrait tone-4" data-tone="tone-4" data-ar="3 / 4"
+      data-title="Placeholder Digital Piece One" data-meta="Digital · 2024">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Digital Piece One</span>
+        <span class="cap-meta">Digital · 2024</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-landscape tone-6" data-tone="tone-6" data-ar="4 / 3"
+      data-title="Placeholder Digital Piece Two" data-meta="Generative / Digital · 2023">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Digital Piece Two</span>
+        <span class="cap-meta">Generative / Digital · 2023</span>
+      </span>
+    </button>
+
+    <button type="button" class="collage-item ar-square tone-3" data-tone="tone-3" data-ar="1 / 1"
+      data-title="Placeholder Digital Piece Three" data-meta="3D Render · 2022">
+      <span class="collage-caption">
+        <span class="cap-title">Placeholder Digital Piece Three</span>
+        <span class="cap-meta">3D Render · 2022</span>
+      </span>
+    </button>
+
+  </div>
 
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
     <p>&copy; 2026 Tomás Rodriguez</p>
-    <p>Tomás Rodriguez</p>
   </div>
 </footer>
 
