@@ -134,7 +134,7 @@ h1, h2, h3, p {
   display: grid;
   gap: 4px;
   width: 100%;
-  min-height: calc(100vh - var(--nav-h));
+  min-height: calc((100vh - var(--nav-h)) * 0.6);
 }
 
 .home-collage.layout-1 {
@@ -266,8 +266,8 @@ h1, h2, h3, p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: clamp(2.5rem, 5vw, 4rem) 1.5rem clamp(3rem, 6vw, 5rem);
-  columns: 2 380px;
-  column-gap: 3rem;
+  columns: 3 310px;
+  column-gap: 2.75rem;
 }
 
 .collage-grid[hidden] {
@@ -278,7 +278,7 @@ h1, h2, h3, p {
   display: block;
   width: 100%;
   break-inside: avoid;
-  margin: 0 0 3rem;
+  margin: 0 0 2.75rem;
   padding: 0;
   border: none;
   background: none;
@@ -349,8 +349,8 @@ h1, h2, h3, p {
 
 @media (max-width: 700px) {
   .collage-grid {
-    columns: 1 260px;
-    column-gap: 1.5rem;
+    columns: 2 210px;
+    column-gap: 1.4rem;
   }
 
   .collage-item {
