@@ -1,53 +1,132 @@
 # Art Portfolio
 
-A plain HTML/CSS/JS portfolio site — no frameworks, no build tools. Just open
-`index.html` in a browser or serve the folder as static files.
+A plain HTML/CSS/JS portfolio site — no frameworks, no build tools. All the
+content (films, visual art, writing) is data-driven from a single JSON file
+and rendered client-side at page load.
 
 ## Folder structure
 
 ```
 .
-├── index.html          Homepage — hero + featured work grid
-├── films.html           Masonry collage of film stills, opens in a lightbox
-├── visual-art.html       Tabbed medium collages (Photography / Painting /
-│                          Drawing & Illustration / Digital Art), same lightbox
-├── writing.html         List of writing pieces
-├── about.html            Bio + contact
+├── index.html            Homepage — full-screen randomized collage
+├── films.html             Masonry collage of films, opens in a lightbox
+├── visual-art.html         Tabbed medium collages (Photography / Painting /
+│                            Drawing & Illustration / Digital Art /
+│                            Graphic Design), same lightbox
+├── writing.html           Plain list of writing pieces, links to the PDFs
+├── about.html              Bio + contact
 ├── css/
-│   └── style.css        All styling, incl. theme variables at the top
+│   └── style.css          All styling, incl. theme variables at the top
 ├── js/
-│   └── main.js           Medium tab switching + the collage lightbox
-└── assets/
-    ├── films/            Drop film thumbnails/media here
-    ├── visual-art/        Drop art piece images here
-    └── writing/           Drop writing-related media here
+│   └── main.js             Fetches data/portfolio.json and renders every
+│                            page's tiles/list, plus tabs + the lightbox
+├── data/
+│   └── portfolio.json      The single source of truth for every piece —
+│                            see "The content file" below
+├── assets/
+│   ├── films/               Film files
+│   ├── visual-art/<medium>/ One folder per medium (photography, painting,
+│   │                        drawing, digital, graphic-design)
+│   └── writing/             Writing files (PDFs etc.)
+└── admin/                  Local-only content-management tool — see below.
+    ├── server.js            Run with `node admin/server.js`
+    └── public/               Its HTML/CSS/JS front end
 ```
 
 Every page shares the same header/nav and footer, hand-copied into each
 HTML file (no templating, since this is plain static HTML).
 
+## The content file
+
+`data/portfolio.json` is an array of entries, one per piece:
+
+```json
+{
+  "id": "5b1f...-uuid",
+  "title": "Horse Study",
+  "section": "visual-art",
+  "medium": "drawing",
+  "description": "",
+  "year": "",
+  "file": "assets/visual-art/drawing/horse-study.jpg"
+}
+```
+
+- `section` is one of `films`, `visual-art`, `writing`.
+- `medium` only applies to `visual-art` entries — it must match one of the
+  sub-folder names under `assets/visual-art/` (this is also what wires an
+  entry to the right tab on `visual-art.html`). `null` for films/writing.
+- `file` is a path relative to the repo root.
+- `year` and `description` can be left blank (`""`).
+- Both images (`.jpg/.jpeg/.png/.gif/.webp`) and video (`.mp4/.mov/.m4v/.webm`)
+  are supported — `js/main.js` picks `<img>` vs `<video>` automatically based
+  on the file extension, both in the grids and in the lightbox.
+
+`js/main.js` fetches this file on every page load and renders:
+films.html's grid, visual-art.html's five medium grids, writing.html's list,
+and the homepage's randomized full-screen collage (pulled from the combined
+films + visual-art pool). There's no hardcoded content left in the HTML —
+edit `data/portfolio.json` (by hand, or via the admin tool below) and every
+page picks it up automatically.
+
+## Adding content going forward
+
+The easiest way is the local admin tool (below) — it handles copying the
+file into the right `assets/` folder, writing the JSON entry, and pushing.
+
+You can also edit `data/portfolio.json` by hand: drop a file into the
+matching `assets/` folder and add a matching entry with a unique `id`
+(any unique string works, e.g. from `uuidgen`).
+
+## Local admin tool
+
+A small local-only tool at `admin/server.js` lets you add, edit, and delete
+portfolio pieces from a form in your browser, and publish changes with one
+click — no editing JSON by hand or using git directly.
+
+**Run it:**
+
+```
+node admin/server.js
+```
+
+Then open **http://localhost:3000**. It needs Node.js installed (built-in
+modules only — `http`, `fs`, `path`, `crypto`, `child_process` — no `npm
+install` required).
+
+**What it does:**
+
+- **Add New Piece** — pick a file, a section (Films / Visual Art / Writing),
+  a medium (only shown for Visual Art, populated from the folders that
+  already exist under `assets/visual-art/`), a title (auto-filled from the
+  filename, editable), and a description. Submitting copies the file into
+  the right `assets/` subfolder and appends an entry to
+  `data/portfolio.json`.
+- **Existing Entries** — every entry from the JSON, with inline-editable
+  title/description/section/medium and a delete button (delete removes the
+  JSON entry only; the underlying file is left on disk).
+- **Publish** — runs `git add -A`, `git commit -m "Update portfolio
+  content"`, and `git push` in the repo, and shows the raw command output.
+  It asks for a confirmation click before it actually runs — nothing is
+  pushed on the first click.
+
+**About `admin/` and GitHub Pages:** GitHub Pages only serves static files —
+it has no server to execute `admin/server.js` on, so the admin tool itself
+is never reachable or runnable from the published site; it only ever runs
+on your own machine. Because Pages serves the repo's files as-is, the *raw
+source* of `admin/server.js` and the files under `admin/public/` would be
+downloadable as plain text if someone requested that URL directly (the same
+way any other file in the repo is). That source contains no credentials or
+tokens — the Publish button relies entirely on whatever `git`/GitHub
+authentication is already set up on your machine — so this is a minor
+transparency note, not a security exposure. If you'd rather its source not
+be servable at all, the common fix is renaming the folder to `_admin/`
+(GitHub Pages' default Jekyll processing skips underscore-prefixed
+folders); ask if you want that changed.
+
 ## Personalizing the site
 
-### 1. Swap your name in
-
-The placeholder `YOUR NAME` appears in the `<title>` tags, the header logo,
-the homepage hero, and the footer of every page. Find-and-replace
-`YOUR NAME` with your actual name across all `.html` files, e.g.:
-
-```
-find . -name "*.html" -exec sed -i '' 's/YOUR NAME/Jane Doe/g' {} +
-```
-
-(On Linux, drop the `''` after `-i`.)
-
-### 2. Update the tagline, bio, and contact email
-
-- Homepage tagline: edit the `<p class="tagline">` in `index.html`.
-- Bio: edit the paragraphs inside `.about-content` in `about.html`.
-- Contact email: replace `your.email@example.com` in `about.html` (both the
-  visible text and the `mailto:` link).
-
-### 3. Change the colors
+### Colors
 
 All theme colors are CSS variables at the top of `css/style.css`:
 
@@ -60,68 +139,15 @@ All theme colors are CSS variables at the top of `css/style.css`:
 }
 ```
 
-Change these four values to re-theme the entire site. Note the lightbox
-overlay always stays dark regardless of these values (it has its own
-`--lightbox-ink` / `--lightbox-muted` / `--lightbox-accent` variables,
-since its scrim needs light text no matter how the rest of the page is
-themed).
+Change these four values to re-theme the entire site. The lightbox overlay
+always stays dark regardless of these values (it has its own
+`--lightbox-ink` / `--lightbox-muted` / `--lightbox-accent` variables, since
+its scrim needs light text no matter how the rest of the page is themed).
 
-### 4. Add real content
+### Bio and contact
 
-`films.html` and the medium sections inside `visual-art.html` use a
-collage/masonry grid (`.collage-grid` of `.collage-item` figures) with a
-built-in lightbox and a small caption under each piece. Each placeholder
-piece looks like this:
-
-```html
-<figure class="collage-item">
-  <button type="button" class="collage-media ar-portrait tone-1" data-tone="tone-1" data-ar="3 / 4"
-    data-title="My Piece Title" data-meta="2024 · Oil on Canvas"
-    aria-label="View enlarged: My Piece Title"></button>
-  <figcaption class="collage-caption">
-    <span class="cap-title">My Piece Title</span>
-    <span class="cap-meta">2024 · Oil on Canvas</span>
-  </figcaption>
-</figure>
-```
-
-To swap in a real image, drop an `<img>` (from the matching `assets/`
-folder) inside the `.collage-media` button — the lightbox will pick it up
-automatically and show it enlarged:
-
-```html
-<figure class="collage-item">
-  <button type="button" class="collage-media ar-portrait" data-title="My Piece Title" data-meta="2024 · Oil on Canvas">
-    <img src="assets/visual-art/my-piece.jpg" alt="My Piece Title">
-  </button>
-  <figcaption class="collage-caption">
-    <span class="cap-title">My Piece Title</span>
-    <span class="cap-meta">2024 · Oil on Canvas</span>
-  </figcaption>
-</figure>
-```
-
-The `ar-*` class (`ar-portrait`, `ar-square`, `ar-landscape`, `ar-wide`,
-`ar-tall`) controls the tile's aspect ratio in the masonry layout — pick
-whichever roughly matches the image. `writing.html` still uses a plain
-list — copy a `.writing-entry` block and fill in real details.
-
-### 5. Visual Art tabs
-
-`visual-art.html` groups pieces into four medium tabs (Photography,
-Painting, Drawing & Illustration, Digital Art), each its own
-`.collage-grid` with a matching `data-medium` attribute wired to a
-`.tab-btn`'s `data-target`. Add pieces inside the grid for the relevant
-medium; the tab-switching JS in `js/main.js` handles showing/hiding.
-
-### 6. The lightbox
-
-`js/main.js` builds a single lightbox on page load, wired to every
-`.collage-media` button on the page (scoped per-grid, so visual-art's
-tabs each navigate their own set). Clicking a piece opens it enlarged
-with a dark scrim; next/prev arrows, arrow keys, and Escape all work. No
-extra setup needed — it just reads each item's
-`data-title`/`data-meta`/`data-ar` and its `<img>` if present.
+Edit the paragraphs inside `.about-content` in `about.html`, and the
+`mailto:` link in the same file.
 
 ## Deploying with GitHub Pages
 

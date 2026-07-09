@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Admin</title>
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Portfolio Admin</h1>
+  <p class="admin-note">
+    Local-only tool — not part of the public site. GitHub Pages cannot execute this
+    server; it only serves static files. Run with <code>node admin/server.js</code>.
+  </p>
+</header>
+
+<main>
+
+  <section class="panel">
+    <h2>Add New Piece</h2>
+    <form id="uploadForm">
+      <label>
+        File
+        <input type="file" id="fileInput" name="file" required>
+      </label>
+
+      <label>
+        Section
+        <select id="sectionSelect" name="section" required>
+          <option value="films">Films</option>
+          <option value="visual-art">Visual Art</option>
+          <option value="writing">Writing</option>
+        </select>
+      </label>
+
+      <label id="mediumField" hidden>
+        Medium
+        <select id="mediumSelect" name="medium"></select>
+      </label>
+
+      <label>
+        Title
+        <input type="text" id="titleInput" name="title" required>
+      </label>
+
+      <label>
+        Description
+        <textarea id="descriptionInput" name="description" rows="3"></textarea>
+      </label>
+
+      <button type="submit">Upload</button>
+    </form>
+    <div id="uploadStatus" class="status" hidden></div>
+  </section>
+
+  <section class="panel">
+    <h2>Existing Entries (<span id="entryCount">0</span>)</h2>
+    <div id="entriesList" class="entries-list"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Publish</h2>
+    <p class="admin-note">
+      Runs <code>git add -A</code>, <code>git commit -m "Update portfolio content"</code>,
+      and <code>git push</code> in this repo.
+    </p>
+    <button type="button" id="publishBtn">Publish</button>
+    <div id="publishConfirm" class="confirm-box" hidden>
+      <p>This will commit and push everything currently in the repo. Continue?</p>
+      <button type="button" id="confirmPublishBtn">Confirm &amp; Publish</button>
+      <button type="button" id="cancelPublishBtn">Cancel</button>
+    </div>
+    <pre id="publishOutput" class="publish-output" hidden></pre>
+  </section>
+
+</main>
+
+<script src="/admin.js"></script>
+</body>
+</html>

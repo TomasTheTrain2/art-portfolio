@@ -1,13 +1,10 @@
-const PREVIEW_POOL = [
-  { tone: 'tone-1', title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-2', title: 'Placeholder Film Title Two',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-4', title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-2', title: 'Placeholder Photograph One',      meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-3', title: 'Placeholder Painting One',        meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-1', title: 'Placeholder Drawing One',         meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-6', title: 'Placeholder Digital Piece One',   meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-5', title: 'Placeholder Photograph Two',      meta: 'Visual Art', target: 'visual-art.html' },
-];
+const MEDIUM_LABELS = {
+  photography: 'Photography',
+  painting: 'Painting',
+  drawing: 'Drawing & Illustration',
+  digital: 'Digital Art',
+  'graphic-design': 'Graphic Design',
+};
 
 // Each layout's grid-template pairs with an exact tile count; layouts that
 // need one larger "lead" tile mark it via leadSpan (the .span-lead class
@@ -20,11 +17,18 @@ const COLLAGE_LAYOUTS = [
   { count: 5, className: 'layout-5', leadSpan: true },
 ];
 
+const VIDEO_EXT_RE = /\.(mp4|mov|m4v|webm)$/i;
+
 document.addEventListener('DOMContentLoaded', () => {
   setNavHeightVar();
-  initHomeCollage();
-  initTabs();
-  initLightbox();
+  loadPortfolioData().then((data) => {
+    if (!data) return;
+    renderHomeCollage(data);
+    renderMediumGrids(data);
+    renderWritingList(data);
+    initTabs();
+    initLightbox();
+  });
 });
 
 window.addEventListener('resize', setNavHeightVar);
@@ -35,22 +39,114 @@ function setNavHeightVar() {
   document.documentElement.style.setProperty('--nav-h', header.offsetHeight + 'px');
 }
 
-function initHomeCollage() {
+async function loadPortfolioData() {
+  try {
+    const res = await fetch('data/portfolio.json');
+    if (!res.ok) throw new Error('Failed to load portfolio data: ' + res.status);
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[c]));
+}
+
+function isVideoFile(path) {
+  return VIDEO_EXT_RE.test(path || '');
+}
+
+function mediaTag(entry) {
+  const src = escapeHtml(entry.file);
+  if (isVideoFile(entry.file)) {
+    return `<video src="${src}" muted playsinline preload="metadata"></video>`;
+  }
+  return `<img src="${src}" alt="${escapeHtml(entry.title)}">`;
+}
+
+function metaFor(entry) {
+  const label = entry.section === 'films'
+    ? 'Films'
+    : (MEDIUM_LABELS[entry.medium] || 'Visual Art');
+  return [label, entry.year].filter(Boolean).join(' · ');
+}
+
+function tileHtml(entry) {
+  const meta = metaFor(entry);
+  return `
+    <button type="button" class="collage-item" data-title="${escapeHtml(entry.title)}" data-meta="${escapeHtml(meta)}" data-file="${escapeHtml(entry.file)}">
+      ${mediaTag(entry)}
+      <span class="collage-caption">
+        <span class="cap-title">${escapeHtml(entry.title)}</span>
+        <span class="cap-meta">${escapeHtml(meta)}</span>
+      </span>
+    </button>
+  `;
+}
+
+// Populates every .collage-grid[data-medium] present on the page — this
+// covers both films.html (a single grid, medium="films") and
+// visual-art.html (one grid per medium tab) with one pass.
+function renderMediumGrids(data) {
+  const grids = document.querySelectorAll('.collage-grid[data-medium]');
+  grids.forEach((grid) => {
+    const medium = grid.dataset.medium;
+    const items = medium === 'films'
+      ? data.filter((e) => e.section === 'films')
+      : data.filter((e) => e.section === 'visual-art' && e.medium === medium);
+    grid.innerHTML = items.map(tileHtml).join('');
+  });
+}
+
+function renderWritingList(data) {
+  const list = document.getElementById('writingList');
+  if (!list) return;
+
+  const items = data.filter((e) => e.section === 'writing');
+  list.innerHTML = items.map((entry) => {
+    const ext = (entry.file.split('.').pop() || '').toUpperCase();
+    const metaParts = [ext, entry.year].filter(Boolean);
+    const metaHtml = metaParts.map((p) => `<span>${escapeHtml(p)}</span>`).join('');
+
+    return `
+      <article class="writing-entry">
+        <a href="${escapeHtml(entry.file)}" target="_blank" rel="noopener">
+          <h3>${escapeHtml(entry.title)}</h3>
+        </a>
+        <p class="description">${escapeHtml(entry.description || '')}</p>
+        <div class="entry-meta">${metaHtml}</div>
+      </article>
+    `;
+  }).join('');
+}
+
+function renderHomeCollage(data) {
   const grid = document.getElementById('homeCollage');
   if (!grid) return;
 
-  const layout = COLLAGE_LAYOUTS[Math.floor(Math.random() * COLLAGE_LAYOUTS.length)];
-  const shuffled = [...PREVIEW_POOL].sort(() => Math.random() - 0.5);
+  const pool = data.filter((e) => e.section === 'films' || e.section === 'visual-art');
+  if (!pool.length) return;
+
+  const eligible = COLLAGE_LAYOUTS.filter((l) => l.count <= pool.length);
+  const layout = eligible[Math.floor(Math.random() * eligible.length)] || COLLAGE_LAYOUTS[0];
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
   const picks = shuffled.slice(0, layout.count);
 
   grid.className = 'home-collage ' + layout.className;
-  grid.innerHTML = picks.map((item, index) => {
+  grid.innerHTML = picks.map((entry, index) => {
     const lead = layout.leadSpan && index === 0 ? ' span-lead' : '';
+    const target = entry.section === 'films' ? 'films.html' : 'visual-art.html';
+    const meta = metaFor(entry);
     return `
-      <a class="collage-item home-tile ${item.tone}${lead}" href="${item.target}">
+      <a class="collage-item home-tile${lead}" href="${target}">
+        ${mediaTag(entry)}
         <span class="collage-caption">
-          <span class="cap-title">${item.title}</span>
-          <span class="cap-meta">${item.meta}</span>
+          <span class="cap-title">${escapeHtml(entry.title)}</span>
+          <span class="cap-meta">${escapeHtml(meta)}</span>
         </span>
       </a>
     `;
@@ -115,16 +211,20 @@ function initLightbox() {
     const item = currentGroup[currentIndex];
     if (!item) return;
 
-    mediaEl.className = 'lightbox-media ' + (item.dataset.tone || '');
-    mediaEl.style.aspectRatio = item.dataset.ar || '4 / 3';
     mediaEl.innerHTML = '';
+    const file = item.dataset.file || '';
 
-    const img = item.querySelector('img');
-    if (img) {
-      const largeImg = document.createElement('img');
-      largeImg.src = img.currentSrc || img.src;
-      largeImg.alt = img.alt || '';
-      mediaEl.appendChild(largeImg);
+    if (isVideoFile(file)) {
+      const video = document.createElement('video');
+      video.src = file;
+      video.controls = true;
+      video.playsInline = true;
+      mediaEl.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.src = file;
+      img.alt = item.dataset.title || '';
+      mediaEl.appendChild(img);
     }
 
     titleEl.textContent = item.dataset.title || '';
@@ -142,6 +242,7 @@ function initLightbox() {
   function close() {
     lightbox.hidden = true;
     document.body.classList.remove('lightbox-open');
+    mediaEl.innerHTML = '';
   }
 
   function step(delta) {
