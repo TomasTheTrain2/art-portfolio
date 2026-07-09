@@ -143,14 +143,60 @@ button.danger:hover {
   gap: 1rem;
 }
 
+.entry-group {
+  margin-bottom: 1.5rem;
+}
+
+.entry-group-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+}
+
+.entry-group .entry-card {
+  margin-bottom: 0.75rem;
+}
+
+.entry-group .entry-card:last-child {
+  margin-bottom: 0;
+}
+
 .entry-card {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: auto 80px 1fr auto;
   gap: 1rem;
   align-items: start;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.85rem;
+}
+
+.reorder-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.reorder-btn {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  align-self: stretch;
+}
+
+.reorder-btn:hover:not(:disabled) {
+  background: #efefe9;
+}
+
+.reorder-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .entry-thumb {

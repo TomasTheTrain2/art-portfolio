@@ -91,6 +91,10 @@ function tileHtml(entry) {
 // Populates every .collage-grid[data-medium] present on the page — this
 // covers both films.html (a single grid, medium="films") and
 // visual-art.html (one grid per medium tab) with one pass.
+function byOrder(a, b) {
+  return (a.order ?? 0) - (b.order ?? 0);
+}
+
 function renderMediumGrids(data) {
   const grids = document.querySelectorAll('.collage-grid[data-medium]');
   grids.forEach((grid) => {
@@ -98,7 +102,7 @@ function renderMediumGrids(data) {
     const items = medium === 'films'
       ? data.filter((e) => e.section === 'films')
       : data.filter((e) => e.section === 'visual-art' && e.medium === medium);
-    grid.innerHTML = items.map(tileHtml).join('');
+    grid.innerHTML = items.sort(byOrder).map(tileHtml).join('');
   });
 }
 
@@ -106,7 +110,7 @@ function renderWritingList(data) {
   const list = document.getElementById('writingList');
   if (!list) return;
 
-  const items = data.filter((e) => e.section === 'writing');
+  const items = data.filter((e) => e.section === 'writing').sort(byOrder);
   list.innerHTML = items.map((entry) => {
     const ext = (entry.file.split('.').pop() || '').toUpperCase();
     const metaParts = [ext, entry.year].filter(Boolean);

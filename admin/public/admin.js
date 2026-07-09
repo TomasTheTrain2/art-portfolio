@@ -1,6 +1,10 @@
 const VIDEO_EXT_RE = /\.(mp4|mov|m4v|webm)$/i;
 const IMAGE_EXT_RE = /\.(jpg|jpeg|png|gif|webp)$/i;
 
+// Matches the medium order used on the public site (js/main.js MEDIUM_LABELS)
+// so group order in the admin list lines up with what visitors see.
+const MEDIUM_ORDER = ['photography', 'painting', 'drawing', 'digital', 'graphic-design'];
+
 let mediums = [];
 let entries = [];
 
@@ -116,12 +120,46 @@ function thumbHtml(entry) {
   return `<div class="entry-thumb placeholder">${escapeHtml(ext)}</div>`;
 }
 
-function renderEntries() {
-  const list = document.getElementById('entriesList');
-  document.getElementById('entryCount').textContent = entries.length;
+function groupKey(entry) {
+  return entry.section === 'visual-art' ? `visual-art:${entry.medium}` : entry.section;
+}
 
-  list.innerHTML = entries.map((entry) => `
+function groupLabel(key) {
+  if (key === 'films') return 'Films';
+  if (key === 'writing') return 'Writing';
+  const medium = key.split(':')[1];
+  return `Visual Art — ${mediumLabel(medium)}`;
+}
+
+// Groups entries the same way the public site sections/tabs do, each sorted
+// by its order field, so up/down here maps directly onto display order.
+function groupedEntries() {
+  const byKey = new Map();
+  entries.forEach((entry) => {
+    const key = groupKey(entry);
+    if (!byKey.has(key)) byKey.set(key, []);
+    byKey.get(key).push(entry);
+  });
+  byKey.forEach((items) => items.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+
+  const orderedMediums = [
+    ...MEDIUM_ORDER.filter((m) => mediums.includes(m)),
+    ...mediums.filter((m) => !MEDIUM_ORDER.includes(m)).sort(),
+  ];
+  const keyOrder = ['films', ...orderedMediums.map((m) => `visual-art:${m}`), 'writing'];
+
+  return keyOrder
+    .filter((key) => byKey.has(key))
+    .map((key) => ({ key, label: groupLabel(key), items: byKey.get(key) }));
+}
+
+function entryCardHtml(entry, position, groupSize) {
+  return `
     <div class="entry-card" data-id="${escapeHtml(entry.id)}">
+      <div class="reorder-controls">
+        <button type="button" class="reorder-btn move-up-btn" ${position === 0 ? 'disabled' : ''} title="Move up" aria-label="Move up">&uarr;</button>
+        <button type="button" class="reorder-btn move-down-btn" ${position === groupSize - 1 ? 'disabled' : ''} title="Move down" aria-label="Move down">&darr;</button>
+      </div>
       ${thumbHtml(entry)}
       <div class="entry-fields">
         <input type="text" class="field-title" value="${escapeHtml(entry.title)}" placeholder="Title">
@@ -143,6 +181,19 @@ function renderEntries() {
         <button type="button" class="danger delete-btn">Delete</button>
       </div>
     </div>
+  `;
+}
+
+function renderEntries() {
+  const list = document.getElementById('entriesList');
+  document.getElementById('entryCount').textContent = entries.length;
+
+  const groups = groupedEntries();
+  list.innerHTML = groups.map((group) => `
+    <div class="entry-group">
+      <h3 class="entry-group-label">${escapeHtml(group.label)}</h3>
+      ${group.items.map((entry, i) => entryCardHtml(entry, i, group.items.length)).join('')}
+    </div>
   `).join('');
 
   list.querySelectorAll('.entry-card').forEach((card) => {
@@ -156,7 +207,45 @@ function renderEntries() {
 
     card.querySelector('.save-btn').addEventListener('click', () => saveEntry(id, card));
     card.querySelector('.delete-btn').addEventListener('click', () => deleteEntry(id));
+    card.querySelector('.move-up-btn').addEventListener('click', () => moveEntry(id, 'up'));
+    card.querySelector('.move-down-btn').addEventListener('click', () => moveEntry(id, 'down'));
   });
+}
+
+async function updateOrder(id, order) {
+  const res = await fetch(`/api/entries/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ order }),
+  });
+  const data = await res.json();
+  if (!res.ok || !data.ok) {
+    throw new Error(data.error || 'Failed to update order');
+  }
+}
+
+async function moveEntry(id, direction) {
+  const entry = entries.find((e) => e.id === id);
+  if (!entry) return;
+
+  const group = entries
+    .filter((e) => groupKey(e) === groupKey(entry))
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const index = group.findIndex((e) => e.id === id);
+  const swapIndex = direction === 'up' ? index - 1 : index + 1;
+  if (swapIndex < 0 || swapIndex >= group.length) return;
+
+  const neighbor = group[swapIndex];
+  const entryOrder = entry.order ?? 0;
+  const neighborOrder = neighbor.order ?? 0;
+
+  try {
+    await updateOrder(entry.id, neighborOrder);
+    await updateOrder(neighbor.id, entryOrder);
+  } catch (err) {
+    alert('Reorder failed: ' + err.message);
+  }
+  await loadEntries();
 }
 
 async function saveEntry(id, card) {

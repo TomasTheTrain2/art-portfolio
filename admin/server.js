@@ -232,17 +232,24 @@ async function handleUpload(req, res) {
   const destPath = path.join(dir, filename);
   fs.writeFileSync(destPath, filePart.data);
 
+  const entries = readEntries();
+  const groupMedium = section === 'visual-art' ? medium : null;
+  const groupOrders = entries
+    .filter((e) => e.section === section && e.medium === groupMedium)
+    .map((e) => e.order ?? 0);
+  const nextOrder = groupOrders.length ? Math.max(...groupOrders) + 1 : 0;
+
   const entry = {
     id: crypto.randomUUID(),
     title,
     section,
-    medium: section === 'visual-art' ? medium : null,
+    medium: groupMedium,
     description,
     year: '',
     file: path.relative(REPO_ROOT, destPath).split(path.sep).join('/'),
+    order: nextOrder,
   };
 
-  const entries = readEntries();
   entries.push(entry);
   writeEntries(entries);
 
@@ -271,6 +278,9 @@ async function handleUpdateEntry(req, res, id) {
   }
 
   const entry = entries[index];
+  const prevSection = entry.section;
+  const prevMedium = entry.medium;
+
   if (typeof payload.title === 'string') entry.title = payload.title.trim();
   if (typeof payload.description === 'string') entry.description = payload.description.trim();
   if (typeof payload.section === 'string' && ['films', 'visual-art', 'writing'].includes(payload.section)) {
@@ -279,6 +289,25 @@ async function handleUpdateEntry(req, res, id) {
   }
   if (typeof payload.medium === 'string' && entry.section === 'visual-art') {
     entry.medium = payload.medium;
+  }
+  if (typeof payload.order === 'number' && Number.isFinite(payload.order)) {
+    entry.order = payload.order;
+  }
+
+  // Keep the file's location on disk in sync with its catalog grouping —
+  // otherwise a re-sectioned entry ends up pointing at a file still sitting
+  // in its old section/medium's folder.
+  if ((entry.section !== prevSection || entry.medium !== prevMedium)
+    && (entry.section !== 'visual-art' || entry.medium)) {
+    const newDir = targetDir(entry.section, entry.medium);
+    const oldPath = path.join(REPO_ROOT, entry.file);
+    if (newDir && fs.existsSync(oldPath) && path.resolve(path.dirname(oldPath)) !== path.resolve(newDir)) {
+      fs.mkdirSync(newDir, { recursive: true });
+      const filename = uniqueFilename(newDir, path.basename(oldPath));
+      const newPath = path.join(newDir, filename);
+      fs.renameSync(oldPath, newPath);
+      entry.file = path.relative(REPO_ROOT, newPath).split(path.sep).join('/');
+    }
   }
 
   entries[index] = entry;

@@ -6,7 +6,8 @@
     "medium": null,
     "description": "",
     "year": "",
-    "file": "assets/films/dia-de-los-muertos-copy.mp4"
+    "file": "assets/films/dia-de-los-muertos-copy.mp4",
+    "order": 0
   },
   {
     "id": "0d52dc4d-e1b1-4a14-9b26-6122e95a7f80",
@@ -15,7 +16,8 @@
     "medium": null,
     "description": "",
     "year": "",
-    "file": "assets/writing/script-i-want-to-hear-them-3.pdf"
+    "file": "assets/writing/script-i-want-to-hear-them-3.pdf",
+    "order": 0
   },
   {
     "id": "3b2f3481-7ffc-4312-bf16-a2cda97ddb27",
@@ -24,7 +26,8 @@
     "medium": null,
     "description": "",
     "year": "",
-    "file": "assets/writing/script-on-the-crest-3.pdf"
+    "file": "assets/writing/script-on-the-crest-3.pdf",
+    "order": 1
   },
   {
     "id": "a62a0075-16d5-43c7-85cc-9cc27ed68960",
@@ -33,7 +36,8 @@
     "medium": null,
     "description": "",
     "year": "",
-    "file": "assets/writing/the-church-on-the-hill.pdf"
+    "file": "assets/writing/the-church-on-the-hill.pdf",
+    "order": 2
   },
   {
     "id": "a7306bd7-0236-4e3a-9679-dfbfeadaa710",
@@ -42,7 +46,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037220021.jpeg"
+    "file": "assets/visual-art/photography/000037220021.jpeg",
+    "order": 0
   },
   {
     "id": "21ba34d1-490a-4d2d-8134-6a36326970f2",
@@ -51,7 +56,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037220022.jpeg"
+    "file": "assets/visual-art/photography/000037220022.jpeg",
+    "order": 1
   },
   {
     "id": "8faab402-dd2c-49a8-89c2-ef13f7141dae",
@@ -60,7 +66,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037220030.jpeg"
+    "file": "assets/visual-art/photography/000037220030.jpeg",
+    "order": 2
   },
   {
     "id": "48243b97-2639-4a8e-8e17-ddf4abd39623",
@@ -69,7 +76,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037230007.jpeg"
+    "file": "assets/visual-art/photography/000037230007.jpeg",
+    "order": 3
   },
   {
     "id": "d3572417-191e-4940-b204-cd72a55c0cd2",
@@ -78,7 +86,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240003.jpeg"
+    "file": "assets/visual-art/photography/000037240003.jpeg",
+    "order": 4
   },
   {
     "id": "d420f721-7562-455b-b275-bdc9688e0fed",
@@ -87,7 +96,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240009.jpeg"
+    "file": "assets/visual-art/photography/000037240009.jpeg",
+    "order": 5
   },
   {
     "id": "ceaf5ebc-3bcf-4684-8cdb-3291f62765b5",
@@ -96,7 +106,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240011.jpeg"
+    "file": "assets/visual-art/photography/000037240011.jpeg",
+    "order": 6
   },
   {
     "id": "009d6f7d-c51b-4d84-a624-0aa6d8e74c54",
@@ -105,7 +116,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240032.jpeg"
+    "file": "assets/visual-art/photography/000037240032.jpeg",
+    "order": 7
   },
   {
     "id": "48b1e19b-16b2-414f-a8ad-7ba852aae728",
@@ -114,7 +126,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240034.jpeg"
+    "file": "assets/visual-art/photography/000037240034.jpeg",
+    "order": 8
   },
   {
     "id": "760cf0d1-a0ad-4caf-8b0b-c4f6cec7c476",
@@ -123,7 +136,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/000037240035.jpeg"
+    "file": "assets/visual-art/photography/000037240035.jpeg",
+    "order": 9
   },
   {
     "id": "447ee59b-f321-46e1-8f11-b7fd40d79eeb",
@@ -132,7 +146,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/23f6b83b-8eca-40c3-bf79-f98d6016870a.jpg"
+    "file": "assets/visual-art/photography/23f6b83b-8eca-40c3-bf79-f98d6016870a.jpg",
+    "order": 10
   },
   {
     "id": "89ff2613-5344-42c9-a200-cbd4acd8891c",
@@ -141,7 +156,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/301186e9-1c46-490d-9606-a71cbf151b30.jpg"
+    "file": "assets/visual-art/photography/301186e9-1c46-490d-9606-a71cbf151b30.jpg",
+    "order": 11
   },
   {
     "id": "29d26f02-924e-45ec-a87f-e6d2408bad18",
@@ -150,7 +166,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/e5412a28-84cb-4b79-9092-b27f670288cf.jpg"
+    "file": "assets/visual-art/photography/e5412a28-84cb-4b79-9092-b27f670288cf.jpg",
+    "order": 12
   },
   {
     "id": "17ee4da5-e3e7-493a-853e-3902fd067fe1",
@@ -159,7 +176,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/img-2870.jpeg"
+    "file": "assets/visual-art/photography/img-2870.jpeg",
+    "order": 13
   },
   {
     "id": "6c1543fb-2056-48c6-85cf-57f5c364e17f",
@@ -168,7 +186,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086404.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086404.jpg",
+    "order": 14
   },
   {
     "id": "e7290476-99f3-421d-8d87-d3cff50357ec",
@@ -177,7 +196,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086409.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086409.jpg",
+    "order": 15
   },
   {
     "id": "9d95ca14-4c75-4862-901f-7bdb6a4d8af7",
@@ -186,7 +206,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086413.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086413.jpg",
+    "order": 16
   },
   {
     "id": "163ed83b-aac5-46f4-a770-b38c205e9fe1",
@@ -195,7 +216,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086417.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086417.jpg",
+    "order": 17
   },
   {
     "id": "34840135-9604-4441-ac63-0a4ae3b3813e",
@@ -204,7 +226,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086419.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086419.jpg",
+    "order": 18
   },
   {
     "id": "b217ef41-de7f-47ec-b24c-ff205d4ee81d",
@@ -213,7 +236,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086421.jpg"
+    "file": "assets/visual-art/photography/photos-from-bryce00086421.jpg",
+    "order": 19
   },
   {
     "id": "a0bb7118-3d66-45d5-bd42-35f703ece811",
@@ -222,7 +246,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-crater00086400.jpg"
+    "file": "assets/visual-art/photography/photos-from-crater00086400.jpg",
+    "order": 20
   },
   {
     "id": "b1adc667-a3b6-4e2e-96c4-50d20f3ed3cc",
@@ -231,7 +256,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-crater00086413.jpg"
+    "file": "assets/visual-art/photography/photos-from-crater00086413.jpg",
+    "order": 21
   },
   {
     "id": "f34e76c8-4df7-4ad6-8877-6009ff21e4c8",
@@ -240,7 +266,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-crater00086428.jpg"
+    "file": "assets/visual-art/photography/photos-from-crater00086428.jpg",
+    "order": 22
   },
   {
     "id": "3420d907-6dc7-4324-8a00-41f79b31552b",
@@ -249,7 +276,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-redwoods00086400.jpg"
+    "file": "assets/visual-art/photography/photos-from-redwoods00086400.jpg",
+    "order": 23
   },
   {
     "id": "1309518c-0cd2-4bc7-8bf0-b03224da097c",
@@ -258,7 +286,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-redwoods00086412.jpg"
+    "file": "assets/visual-art/photography/photos-from-redwoods00086412.jpg",
+    "order": 24
   },
   {
     "id": "12992e2a-4c17-449a-acb1-3f8130856576",
@@ -267,7 +296,8 @@
     "medium": "photography",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/photography/photos-from-redwoods00086414.jpg"
+    "file": "assets/visual-art/photography/photos-from-redwoods00086414.jpg",
+    "order": 25
   },
   {
     "id": "801a0d60-ffa2-492c-82c0-3b128b00dc43",
@@ -276,7 +306,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/0c8569bf-6657-4856-8282-13ae069cbbc6.jpeg"
+    "file": "assets/visual-art/painting/0c8569bf-6657-4856-8282-13ae069cbbc6.jpeg",
+    "order": 0
   },
   {
     "id": "50621c3f-ec33-4321-af2c-00d50862c0fd",
@@ -285,7 +316,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/2d5ff5b8-2546-4608-9691-77cd341c9541-1280x1280.jpg"
+    "file": "assets/visual-art/painting/2d5ff5b8-2546-4608-9691-77cd341c9541-1280x1280.jpg",
+    "order": 1
   },
   {
     "id": "7bc622bf-9c7a-415e-afab-c05d0eec953a",
@@ -294,7 +326,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-0945.jpg"
+    "file": "assets/visual-art/painting/img-0945.jpg",
+    "order": 2
   },
   {
     "id": "08a39be8-bd29-4618-8b49-1688cc5c4621",
@@ -303,7 +336,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1475.jpeg"
+    "file": "assets/visual-art/painting/img-1475.jpeg",
+    "order": 3
   },
   {
     "id": "67bab94a-55f4-4688-83fd-58ac9e88d1d8",
@@ -312,7 +346,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1477.jpeg"
+    "file": "assets/visual-art/painting/img-1477.jpeg",
+    "order": 4
   },
   {
     "id": "77751ab1-3c95-4b38-9eb3-ce6456e96e99",
@@ -321,7 +356,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1478.jpeg"
+    "file": "assets/visual-art/painting/img-1478.jpeg",
+    "order": 5
   },
   {
     "id": "03f9fb36-810b-4814-9683-2356ab287403",
@@ -330,7 +366,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1480.jpeg"
+    "file": "assets/visual-art/painting/img-1480.jpeg",
+    "order": 6
   },
   {
     "id": "3c0a4cd8-7e15-4db5-99a1-d4d17d32af51",
@@ -339,7 +376,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1721.jpeg"
+    "file": "assets/visual-art/painting/img-1721.jpeg",
+    "order": 7
   },
   {
     "id": "3436276c-55bc-4da8-bcd2-90f7152ca025",
@@ -348,7 +386,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-1722.jpeg"
+    "file": "assets/visual-art/painting/img-1722.jpeg",
+    "order": 8
   },
   {
     "id": "c73a39f0-a3d8-444b-99e3-9e5ba96c503d",
@@ -357,7 +396,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-2623.jpeg"
+    "file": "assets/visual-art/painting/img-2623.jpeg",
+    "order": 9
   },
   {
     "id": "a8fe412a-96ea-4bac-ae11-39848445cd90",
@@ -366,7 +406,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-3209.jpeg"
+    "file": "assets/visual-art/painting/img-3209.jpeg",
+    "order": 10
   },
   {
     "id": "fc41c794-c7e2-4750-b7bb-eda4d505040f",
@@ -375,7 +416,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-3553.jpeg"
+    "file": "assets/visual-art/painting/img-3553.jpeg",
+    "order": 11
   },
   {
     "id": "5b0b5628-c279-4020-8147-4f1a982b4073",
@@ -384,7 +426,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-6095.jpeg"
+    "file": "assets/visual-art/painting/img-6095.jpeg",
+    "order": 12
   },
   {
     "id": "627cf482-1531-4a1a-bdac-cefe4a3ea7d5",
@@ -393,7 +436,8 @@
     "medium": "painting",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/painting/img-6177-2.jpeg"
+    "file": "assets/visual-art/painting/img-6177-2.jpeg",
+    "order": 13
   },
   {
     "id": "05f1d966-242e-4ae5-ab40-9d9cb598cf02",
@@ -402,7 +446,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/3h-figure-drawing.jpg"
+    "file": "assets/visual-art/drawing/3h-figure-drawing.jpg",
+    "order": 0
   },
   {
     "id": "19b73944-b3f7-463e-bec3-fc1e2d1866c7",
@@ -411,7 +456,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/5-robotic-head-with-hand-tools.jpg"
+    "file": "assets/visual-art/drawing/5-robotic-head-with-hand-tools.jpg",
+    "order": 1
   },
   {
     "id": "4b02858d-6aa7-4cc5-a12d-3e087373e136",
@@ -420,7 +466,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/70495700946-83aa9598-6b7f-4e3b-aab0-e6970cdfe539.jpeg"
+    "file": "assets/visual-art/drawing/70495700946-83aa9598-6b7f-4e3b-aab0-e6970cdfe539.jpeg",
+    "order": 2
   },
   {
     "id": "243bd40e-4133-4915-82d2-abdb3f6bba06",
@@ -429,7 +476,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/e37f2d2a-1732-4937-ac4f-f3f05ccb2418.jpeg"
+    "file": "assets/visual-art/drawing/e37f2d2a-1732-4937-ac4f-f3f05ccb2418.jpeg",
+    "order": 3
   },
   {
     "id": "93011d93-fe10-470b-ad1e-8e2e0366f9fe",
@@ -438,7 +486,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/f0d4ef85-96f7-4f40-a725-df626d49de0e.jpeg"
+    "file": "assets/visual-art/drawing/f0d4ef85-96f7-4f40-a725-df626d49de0e.jpeg",
+    "order": 4
   },
   {
     "id": "dc36d9a2-4e5b-4cf5-b949-cd15a2266047",
@@ -447,7 +496,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/fb26bee4-e415-4c29-aa0b-12a6a691bac0.jpeg"
+    "file": "assets/visual-art/drawing/fb26bee4-e415-4c29-aa0b-12a6a691bac0.jpeg",
+    "order": 5
   },
   {
     "id": "d717cb75-5438-4c36-a980-8a5259c1ac81",
@@ -456,7 +506,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/fc01c670-0a57-4ea1-92bb-0e18d86b9f47.jpg"
+    "file": "assets/visual-art/drawing/fc01c670-0a57-4ea1-92bb-0e18d86b9f47.jpg",
+    "order": 6
   },
   {
     "id": "689c4791-8d71-45b1-858c-a6a5f3e226f8",
@@ -465,7 +516,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/horse-study.jpg"
+    "file": "assets/visual-art/drawing/horse-study.jpg",
+    "order": 7
   },
   {
     "id": "b6a35ad2-f5a2-44f2-b183-f20c43dd0ef5",
@@ -474,7 +526,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-0690.jpeg"
+    "file": "assets/visual-art/drawing/img-0690.jpeg",
+    "order": 8
   },
   {
     "id": "11b62fe4-5202-451c-bb32-cf49a24cd572",
@@ -483,7 +536,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-0970.jpeg"
+    "file": "assets/visual-art/drawing/img-0970.jpeg",
+    "order": 9
   },
   {
     "id": "abd95851-656b-444e-af07-560a73e9a4b7",
@@ -492,7 +546,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-2181.jpeg"
+    "file": "assets/visual-art/drawing/img-2181.jpeg",
+    "order": 10
   },
   {
     "id": "858a32b0-4eef-4f96-8cdd-3aeaabdf048f",
@@ -501,7 +556,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-3794.jpeg"
+    "file": "assets/visual-art/drawing/img-3794.jpeg",
+    "order": 11
   },
   {
     "id": "283b65e4-fd12-43ec-aae7-38134c72493a",
@@ -510,7 +566,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-3795.jpeg"
+    "file": "assets/visual-art/drawing/img-3795.jpeg",
+    "order": 12
   },
   {
     "id": "45f1c82d-43de-429f-8353-fcf0d0d30a56",
@@ -519,7 +576,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-4989.jpeg"
+    "file": "assets/visual-art/drawing/img-4989.jpeg",
+    "order": 13
   },
   {
     "id": "cf5da742-555c-43f4-b7b4-b304d9a32050",
@@ -528,7 +586,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-5003.jpeg"
+    "file": "assets/visual-art/drawing/img-5003.jpeg",
+    "order": 14
   },
   {
     "id": "b70096c5-c9a4-4df3-95b0-245afe874ce7",
@@ -537,7 +596,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-5082.jpeg"
+    "file": "assets/visual-art/drawing/img-5082.jpeg",
+    "order": 15
   },
   {
     "id": "035b6324-3b4f-418c-9e3b-02ecd0bfee6c",
@@ -546,7 +606,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-5083.jpeg"
+    "file": "assets/visual-art/drawing/img-5083.jpeg",
+    "order": 16
   },
   {
     "id": "68435b14-264f-45e7-82c4-b1db3dcb8274",
@@ -555,7 +616,8 @@
     "medium": "drawing",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/drawing/img-5175.jpeg"
+    "file": "assets/visual-art/drawing/img-5175.jpeg",
+    "order": 17
   },
   {
     "id": "f19bcba3-b70a-4ff2-bd49-ff5d9651c563",
@@ -564,7 +626,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/66b24cb1-fc6f-4ec9-aadf-58c7f1dd043b.jpg"
+    "file": "assets/visual-art/digital/66b24cb1-fc6f-4ec9-aadf-58c7f1dd043b.jpg",
+    "order": 0
   },
   {
     "id": "4d9d153b-ca1b-4733-a638-973b7173891a",
@@ -573,7 +636,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/7e648a1c-f25c-43a3-a986-1b26044e4773.jpg"
+    "file": "assets/visual-art/digital/7e648a1c-f25c-43a3-a986-1b26044e4773.jpg",
+    "order": 1
   },
   {
     "id": "ee57db19-ffc7-461b-a3b1-92b0372b231a",
@@ -582,7 +646,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/img-0517.png"
+    "file": "assets/visual-art/digital/img-0517.png",
+    "order": 2
   },
   {
     "id": "1398bb91-87ad-4808-befa-8326aee6278f",
@@ -591,7 +656,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/img-1040.jpg"
+    "file": "assets/visual-art/digital/img-1040.jpg",
+    "order": 3
   },
   {
     "id": "75b445c0-cb08-4956-89d2-e54018afa6f8",
@@ -600,7 +666,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-1.png"
+    "file": "assets/visual-art/digital/untitled-artwork-1.png",
+    "order": 4
   },
   {
     "id": "0c3358f8-358b-49d2-9177-4b23deb464d2",
@@ -609,7 +676,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-2.jpg"
+    "file": "assets/visual-art/digital/untitled-artwork-2.jpg",
+    "order": 5
   },
   {
     "id": "e1ce313c-711b-4c00-8669-16b458930463",
@@ -618,7 +686,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-3.jpg"
+    "file": "assets/visual-art/digital/untitled-artwork-3.jpg",
+    "order": 6
   },
   {
     "id": "21ab6bd6-3d76-4b0f-91f5-03e71f8bba66",
@@ -627,7 +696,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-6-copy-2.png"
+    "file": "assets/visual-art/digital/untitled-artwork-6-copy-2.png",
+    "order": 7
   },
   {
     "id": "0daa8eae-6151-4b35-98c3-457aea379a56",
@@ -636,7 +706,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-6-copy-3.png"
+    "file": "assets/visual-art/digital/untitled-artwork-6-copy-3.png",
+    "order": 8
   },
   {
     "id": "a257f95c-b03a-4800-9252-506db55f9689",
@@ -645,7 +716,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-6-copy-6.png"
+    "file": "assets/visual-art/digital/untitled-artwork-6-copy-6.png",
+    "order": 9
   },
   {
     "id": "7dba0aef-5602-44e5-be71-385844479c05",
@@ -654,7 +726,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-6-copy.png"
+    "file": "assets/visual-art/digital/untitled-artwork-6-copy.png",
+    "order": 10
   },
   {
     "id": "75b6400a-038f-444b-9aa6-58664182e3d9",
@@ -663,7 +736,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork-7.png"
+    "file": "assets/visual-art/digital/untitled-artwork-7.png",
+    "order": 11
   },
   {
     "id": "3ca8e8c5-9af7-4eb8-b7df-63f6f889b864",
@@ -672,7 +746,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork.jpg"
+    "file": "assets/visual-art/digital/untitled-artwork.jpg",
+    "order": 12
   },
   {
     "id": "e4c5c4dc-419d-435c-9984-18323b97e448",
@@ -681,7 +756,8 @@
     "medium": "digital",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/digital/untitled-artwork.png"
+    "file": "assets/visual-art/digital/untitled-artwork.png",
+    "order": 13
   },
   {
     "id": "a3ca1b80-21b3-4145-b6f4-78870283b811",
@@ -690,7 +766,8 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/img-2679.jpeg"
+    "file": "assets/visual-art/graphic-design/img-2679.jpeg",
+    "order": 0
   },
   {
     "id": "d5501e22-7c23-4f53-a9b5-f644c6aa441b",
@@ -699,7 +776,8 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy-4.png"
+    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy-4.png",
+    "order": 1
   },
   {
     "id": "3d3ff968-d201-46ec-bd9b-05edfa3eee9d",
@@ -708,7 +786,8 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy-5.png"
+    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy-5.png",
+    "order": 2
   },
   {
     "id": "4fa5364c-58cf-401c-aa28-ac8b76ef77f7",
@@ -717,7 +796,8 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy.png"
+    "file": "assets/visual-art/graphic-design/untitled-artwork-6-copy.png",
+    "order": 3
   },
   {
     "id": "271d7520-a235-444c-aa2e-b2ca0fd3c7fc",
@@ -726,7 +806,8 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/untitled-artwork-6.png"
+    "file": "assets/visual-art/graphic-design/untitled-artwork-6.png",
+    "order": 4
   },
   {
     "id": "2bbee9b3-4663-4a9d-8818-b63aadc891ef",
@@ -735,6 +816,7 @@
     "medium": "graphic-design",
     "description": "",
     "year": "",
-    "file": "assets/visual-art/graphic-design/untitled-artwork-7.png"
+    "file": "assets/visual-art/graphic-design/untitled-artwork-7.png",
+    "order": 5
   }
 ]
