@@ -16,6 +16,7 @@
   --lightbox-accent: #9db3bd;
 
   --max-width: 1200px;
+  --nav-h: 120px; /* fallback estimate; js/main.js sets this precisely from the real header height */
 }
 
 /* ==========================================================================
@@ -76,6 +77,7 @@ h1, h2, h3, p {
   position: sticky;
   top: 0;
   z-index: 10;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .header-inner {
@@ -126,52 +128,77 @@ h1, h2, h3, p {
 }
 
 /* ==========================================================================
-   HERO
+   HOMEPAGE COLLAGE — full-bleed, fills the viewport below the nav
    ========================================================================== */
-.hero {
-  padding: clamp(3rem, 10vw, 6rem) 1.5rem clamp(2.5rem, 6vw, 4rem);
-}
-
-.hero-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.hero .tagline {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  font-weight: 300;
-  line-height: 1.3;
-  color: var(--ink);
-  max-width: 44ch;
-}
-
-/* ==========================================================================
-   RECENT WORK PREVIEW (homepage) — randomized thumbnails, no cards/arrows
-   ========================================================================== */
-.featured {
-  padding: clamp(2rem, 5vw, 4rem) 1.5rem clamp(4rem, 8vw, 6rem);
-}
-
-.featured h2 {
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 2.5rem;
-}
-
-.preview-grid {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
+.home-collage {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  gap: 4px;
+  width: 100%;
+  min-height: calc(100vh - var(--nav-h));
 }
 
-.preview-grid .collage-item {
+.home-collage.layout-1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.home-collage.layout-2 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.home-collage.layout-3 {
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.home-collage.layout-3 .span-lead {
+  grid-row: 1 / 3;
+}
+
+.home-collage.layout-4 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.home-collage.layout-5 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.home-collage.layout-5 .span-lead {
+  grid-column: 1 / 3;
+}
+
+.home-collage .home-tile {
+  width: 100%;
+  height: 100%;
   margin: 0;
+}
+
+@media (max-width: 700px) {
+  .home-collage {
+    min-height: auto;
+  }
+
+  .home-collage.layout-1,
+  .home-collage.layout-2,
+  .home-collage.layout-3,
+  .home-collage.layout-4,
+  .home-collage.layout-5 {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .home-collage .home-tile {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
+
+  .home-collage .span-lead {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 
 /* ==========================================================================
@@ -239,8 +266,8 @@ h1, h2, h3, p {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: clamp(2.5rem, 5vw, 4rem) 1.5rem clamp(3rem, 6vw, 5rem);
-  columns: 4 240px;
-  column-gap: 2.5rem;
+  columns: 2 380px;
+  column-gap: 3rem;
 }
 
 .collage-grid[hidden] {
@@ -251,7 +278,7 @@ h1, h2, h3, p {
   display: block;
   width: 100%;
   break-inside: avoid;
-  margin: 0 0 2.5rem;
+  margin: 0 0 3rem;
   padding: 0;
   border: none;
   background: none;
@@ -291,9 +318,13 @@ h1, h2, h3, p {
   position: absolute;
   left: 0;
   right: 0;
+  top: 75%;
   bottom: 0;
-  padding: 1.5rem 1rem 0.85rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -318,8 +349,8 @@ h1, h2, h3, p {
 
 @media (max-width: 700px) {
   .collage-grid {
-    columns: 2 160px;
-    column-gap: 1.25rem;
+    columns: 1 260px;
+    column-gap: 1.5rem;
   }
 
   .collage-item {

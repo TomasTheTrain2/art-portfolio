@@ -1,36 +1,60 @@
 const PREVIEW_POOL = [
-  { tone: 'tone-1', ar: 'ar-portrait',  title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-2', ar: 'ar-wide',      title: 'Placeholder Film Title Two',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-4', ar: 'ar-square',    title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
-  { tone: 'tone-2', ar: 'ar-portrait',  title: 'Placeholder Photograph One',      meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-3', ar: 'ar-landscape', title: 'Placeholder Painting One',        meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-1', ar: 'ar-tall',      title: 'Placeholder Drawing One',         meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-6', ar: 'ar-square',    title: 'Placeholder Digital Piece One',   meta: 'Visual Art', target: 'visual-art.html' },
-  { tone: 'tone-5', ar: 'ar-wide',      title: 'Placeholder Photograph Two',      meta: 'Visual Art', target: 'visual-art.html' },
+  { tone: 'tone-1', title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
+  { tone: 'tone-2', title: 'Placeholder Film Title Two',      meta: 'Films',      target: 'films.html' },
+  { tone: 'tone-4', title: 'Placeholder Film Title One',      meta: 'Films',      target: 'films.html' },
+  { tone: 'tone-2', title: 'Placeholder Photograph One',      meta: 'Visual Art', target: 'visual-art.html' },
+  { tone: 'tone-3', title: 'Placeholder Painting One',        meta: 'Visual Art', target: 'visual-art.html' },
+  { tone: 'tone-1', title: 'Placeholder Drawing One',         meta: 'Visual Art', target: 'visual-art.html' },
+  { tone: 'tone-6', title: 'Placeholder Digital Piece One',   meta: 'Visual Art', target: 'visual-art.html' },
+  { tone: 'tone-5', title: 'Placeholder Photograph Two',      meta: 'Visual Art', target: 'visual-art.html' },
+];
+
+// Each layout's grid-template pairs with an exact tile count; layouts that
+// need one larger "lead" tile mark it via leadSpan (the .span-lead class
+// is added to the first rendered tile).
+const COLLAGE_LAYOUTS = [
+  { count: 1, className: 'layout-1' },
+  { count: 2, className: 'layout-2' },
+  { count: 3, className: 'layout-3', leadSpan: true },
+  { count: 4, className: 'layout-4' },
+  { count: 5, className: 'layout-5', leadSpan: true },
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHomePreview();
+  setNavHeightVar();
+  initHomeCollage();
   initTabs();
   initLightbox();
 });
 
-function initHomePreview() {
-  const grid = document.getElementById('previewGrid');
+window.addEventListener('resize', setNavHeightVar);
+
+function setNavHeightVar() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+  document.documentElement.style.setProperty('--nav-h', header.offsetHeight + 'px');
+}
+
+function initHomeCollage() {
+  const grid = document.getElementById('homeCollage');
   if (!grid) return;
 
+  const layout = COLLAGE_LAYOUTS[Math.floor(Math.random() * COLLAGE_LAYOUTS.length)];
   const shuffled = [...PREVIEW_POOL].sort(() => Math.random() - 0.5);
-  const count = 3 + Math.floor(Math.random() * 3); // 3, 4, or 5
-  const picks = shuffled.slice(0, count);
+  const picks = shuffled.slice(0, layout.count);
 
-  grid.innerHTML = picks.map((item) => `
-    <a class="collage-item ${item.ar} ${item.tone}" href="${item.target}">
-      <span class="collage-caption">
-        <span class="cap-title">${item.title}</span>
-        <span class="cap-meta">${item.meta}</span>
-      </span>
-    </a>
-  `).join('');
+  grid.className = 'home-collage ' + layout.className;
+  grid.innerHTML = picks.map((item, index) => {
+    const lead = layout.leadSpan && index === 0 ? ' span-lead' : '';
+    return `
+      <a class="collage-item home-tile ${item.tone}${lead}" href="${item.target}">
+        <span class="collage-caption">
+          <span class="cap-title">${item.title}</span>
+          <span class="cap-meta">${item.meta}</span>
+        </span>
+      </a>
+    `;
+  }).join('');
 }
 
 function initTabs() {
