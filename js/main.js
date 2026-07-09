@@ -6,21 +6,18 @@ const MEDIUM_LABELS = {
   'graphic-design': 'Graphic Design',
 };
 
-// Each layout's grid-template pairs with an exact tile count; layouts that
-// need one larger "lead" tile mark it via leadSpan (the .span-lead class
-// is added to the first rendered tile). Layouts always cover 3-6 tiles so
-// the collage reliably fills the space with multiple pieces.
-const COLLAGE_LAYOUTS = [
-  { count: 3, className: 'layout-3', leadSpan: true },
-  { count: 4, className: 'layout-4' },
-  { count: 5, className: 'layout-5', leadSpan: true },
-  { count: 6, className: 'layout-6' },
-];
+// Homepage collage always picks 3-6 tiles so it reliably fills the space
+// with multiple pieces.
+const COLLAGE_MIN_TILES = 3;
+const COLLAGE_MAX_TILES = 6;
+const COLLAGE_NARROW_BREAKPOINT = 700;
+const FALLBACK_IMAGE_ASPECT = 4 / 3;
+const FALLBACK_VIDEO_ASPECT = 16 / 9;
+const MEDIA_LOAD_TIMEOUT_MS = 8000;
 
 const VIDEO_EXT_RE = /\.(mp4|mov|m4v|webm)$/i;
 
 document.addEventListener('DOMContentLoaded', () => {
-  setNavHeightVar();
   loadPortfolioData().then((data) => {
     if (!data) return;
     renderHomeCollage(data);
@@ -30,14 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initLightbox();
   });
 });
-
-window.addEventListener('resize', setNavHeightVar);
-
-function setNavHeightVar() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-  document.documentElement.style.setProperty('--nav-h', header.offsetHeight + 'px');
-}
 
 async function loadPortfolioData() {
   try {
@@ -128,33 +117,198 @@ function renderWritingList(data) {
   }).join('');
 }
 
-function renderHomeCollage(data) {
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Resolves an entry's real aspect ratio by letting the browser load it
+// (images) or read its metadata (video), so the collage layout can size
+// each tile to its true shape instead of cropping to a fixed cell. Always
+// resolves — a load/timeout failure just falls back to a plausible ratio
+// rather than blocking the whole collage from rendering.
+function loadAspectRatio(entry) {
+  return new Promise((resolve) => {
+    let done = false;
+    function finish(aspect, mediaEl) {
+      if (done) return;
+      done = true;
+      resolve({ entry, aspect, mediaEl });
+    }
+
+    if (isVideoFile(entry.file)) {
+      const video = document.createElement('video');
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.addEventListener('loadedmetadata', () => {
+        const aspect = video.videoWidth && video.videoHeight
+          ? video.videoWidth / video.videoHeight
+          : FALLBACK_VIDEO_ASPECT;
+        finish(aspect, video);
+      });
+      video.addEventListener('error', () => finish(FALLBACK_VIDEO_ASPECT, video));
+      setTimeout(() => finish(FALLBACK_VIDEO_ASPECT, video), MEDIA_LOAD_TIMEOUT_MS);
+      video.src = entry.file;
+    } else {
+      const img = new Image();
+      img.addEventListener('load', () => {
+        const aspect = img.naturalWidth && img.naturalHeight
+          ? img.naturalWidth / img.naturalHeight
+          : FALLBACK_IMAGE_ASPECT;
+        finish(aspect, img);
+      });
+      img.addEventListener('error', () => finish(FALLBACK_IMAGE_ASPECT, img));
+      setTimeout(() => finish(FALLBACK_IMAGE_ASPECT, img), MEDIA_LOAD_TIMEOUT_MS);
+      img.src = entry.file;
+    }
+  });
+}
+
+// Splits `aspects` into every possible sequence of contiguous rows (there
+// are only 2^(n-1) of these for the 3-6 tiles the collage ever holds) and,
+// for each, computes the row heights that make every row's tiles exactly
+// fill `containerW` — this is the standard "justified gallery" math: a row
+// of tiles with aspect ratios a_i, given height h, has total width
+// h * sum(a_i), so solving for a target width W gives h = W / sum(a_i).
+// Among partitions whose total height fits within containerH (no scroll),
+// picks the one that fills it most fully. If none fit — only possible with
+// unusually extreme aspect ratios — falls back to the shortest partition
+// and reports a uniform scale-down so it still fits without cropping.
+function pickCollagePartition(aspects, containerW, containerH) {
+  const n = aspects.length;
+  let bestFit = null;
+  let globalMin = null;
+
+  const totalMasks = 1 << (n - 1);
+  for (let mask = 0; mask < totalMasks; mask++) {
+    const breaks = [];
+    let start = 0;
+    for (let i = 0; i < n - 1; i++) {
+      if (mask & (1 << i)) {
+        breaks.push([start, i + 1]);
+        start = i + 1;
+      }
+    }
+    breaks.push([start, n]);
+
+    let totalH = 0;
+    const rowHeights = breaks.map(([s, e]) => {
+      const sumAspect = aspects.slice(s, e).reduce((a, b) => a + b, 0);
+      const h = containerW / sumAspect;
+      totalH += h;
+      return h;
+    });
+
+    const candidate = { rows: breaks, rowHeights, totalH };
+    if (totalH <= containerH && (!bestFit || totalH > bestFit.totalH)) {
+      bestFit = candidate;
+    }
+    if (!globalMin || totalH < globalMin.totalH) {
+      globalMin = candidate;
+    }
+  }
+
+  const chosen = bestFit || globalMin;
+  const scale = bestFit ? 1 : containerH / chosen.totalH;
+  return { rows: chosen.rows, rowHeights: chosen.rowHeights, scale };
+}
+
+// Builds the final pixel geometry for each row/tile. Each row's tiles get
+// integer widths that sum exactly to the row's own width (the last tile
+// absorbs any rounding remainder) so nothing leaves a sub-pixel gap.
+function buildCollageLayout(aspects, containerW, containerH) {
+  const { rows, rowHeights, scale } = pickCollagePartition(aspects, containerW, containerH);
+  const rowTargetWidth = Math.round(containerW * scale);
+
+  return rows.map(([start, end], i) => {
+    const rowHeight = rowHeights[i] * scale;
+    const rowAspects = aspects.slice(start, end);
+    const widths = rowAspects.map((a) => Math.round(a * rowHeight));
+    const remainder = rowTargetWidth - widths.reduce((a, b) => a + b, 0);
+    widths[widths.length - 1] += remainder;
+    return { start, end, height: Math.round(rowHeight), widths };
+  });
+}
+
+function buildCollageTile(entry, mediaEl, width) {
+  const a = document.createElement('a');
+  a.className = 'collage-item home-tile';
+  a.href = entry.section === 'films' ? 'films.html' : 'visual-art.html';
+  if (width != null) a.style.width = width + 'px';
+
+  if (mediaEl.tagName === 'IMG') mediaEl.alt = entry.title || '';
+  a.appendChild(mediaEl);
+
+  const meta = metaFor(entry);
+  const caption = document.createElement('span');
+  caption.className = 'collage-caption';
+  caption.innerHTML = `
+    <span class="cap-title">${escapeHtml(entry.title)}</span>
+    <span class="cap-meta">${escapeHtml(meta)}</span>
+  `;
+  a.appendChild(caption);
+  return a;
+}
+
+// Below COLLAGE_NARROW_BREAKPOINT a justified multi-column layout doesn't
+// have room to work with, so tiles stack full-width at their natural
+// height instead — still zero cropping, just no fixed-viewport-height
+// constraint (the section is allowed to scroll like any other page content).
+function renderNarrowCollage(grid, loaded) {
+  grid.className = 'home-collage home-collage-narrow';
+  grid.innerHTML = '';
+  loaded.forEach(({ entry, mediaEl }) => {
+    grid.appendChild(buildCollageTile(entry, mediaEl, null));
+  });
+}
+
+function renderCollageLayout(grid, loaded) {
+  if (window.innerWidth <= COLLAGE_NARROW_BREAKPOINT) {
+    renderNarrowCollage(grid, loaded);
+    return;
+  }
+
+  const header = document.querySelector('.site-header');
+  const navH = header ? header.offsetHeight : 0;
+  const containerW = document.documentElement.clientWidth;
+  const containerH = window.innerHeight - navH;
+
+  const aspects = loaded.map((l) => l.aspect);
+  const rows = buildCollageLayout(aspects, containerW, containerH);
+
+  grid.className = 'home-collage';
+  grid.innerHTML = '';
+  rows.forEach((row) => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'collage-row';
+    rowEl.style.height = row.height + 'px';
+    for (let i = row.start; i < row.end; i++) {
+      const { entry, mediaEl } = loaded[i];
+      rowEl.appendChild(buildCollageTile(entry, mediaEl, row.widths[i - row.start]));
+    }
+    grid.appendChild(rowEl);
+  });
+}
+
+async function renderHomeCollage(data) {
   const grid = document.getElementById('homeCollage');
   if (!grid) return;
 
   const pool = data.filter((e) => e.section === 'films' || e.section === 'visual-art');
   if (!pool.length) return;
 
-  const eligible = COLLAGE_LAYOUTS.filter((l) => l.count <= pool.length);
-  const layout = eligible[Math.floor(Math.random() * eligible.length)] || COLLAGE_LAYOUTS[0];
+  const count = Math.min(randomInt(COLLAGE_MIN_TILES, COLLAGE_MAX_TILES), pool.length);
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  const picks = shuffled.slice(0, layout.count);
+  const picks = shuffled.slice(0, count);
 
-  grid.className = 'home-collage ' + layout.className;
-  grid.innerHTML = picks.map((entry, index) => {
-    const lead = layout.leadSpan && index === 0 ? ' span-lead' : '';
-    const target = entry.section === 'films' ? 'films.html' : 'visual-art.html';
-    const meta = metaFor(entry);
-    return `
-      <a class="collage-item home-tile${lead}" href="${target}">
-        ${mediaTag(entry)}
-        <span class="collage-caption">
-          <span class="cap-title">${escapeHtml(entry.title)}</span>
-          <span class="cap-meta">${escapeHtml(meta)}</span>
-        </span>
-      </a>
-    `;
-  }).join('');
+  const loaded = await Promise.all(picks.map(loadAspectRatio));
+  renderCollageLayout(grid, loaded);
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => renderCollageLayout(grid, loaded), 150);
+  });
 }
 
 function initTabs() {

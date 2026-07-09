@@ -16,7 +16,6 @@
   --lightbox-accent: #9db3bd;
 
   --max-width: 1200px;
-  --nav-h: 120px; /* fallback estimate; js/main.js sets this precisely from the real header height */
 }
 
 /* ==========================================================================
@@ -128,73 +127,54 @@ h1, h2, h3, p {
 }
 
 /* ==========================================================================
-   HOMEPAGE COLLAGE — full-bleed, fills the viewport below the nav
+   HOMEPAGE COLLAGE — full-bleed, fills the viewport below the nav.
+   js/main.js computes each row's height and each tile's width from the
+   picked images' real aspect ratios (a justified-gallery layout), so tiles
+   are never cropped; this stylesheet just lays out whatever it builds.
    ========================================================================== */
 .home-collage {
-  display: grid;
-  gap: 12px;
-  padding: 12px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(100vh - var(--nav-h));
   background: var(--paper);
 }
 
-.home-collage.layout-3 {
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(2, 1fr);
-}
-
-.home-collage.layout-3 .span-lead {
-  grid-row: 1 / 3;
-}
-
-.home-collage.layout-4 {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-}
-
-.home-collage.layout-5 {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-}
-
-.home-collage.layout-5 .span-lead {
-  grid-column: 1 / 3;
-}
-
-.home-collage.layout-6 {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+.collage-row {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .home-collage .home-tile {
-  width: 100%;
-  height: 100%;
+  display: block;
+  flex: 0 0 auto;
   margin: 0;
 }
 
-@media (max-width: 700px) {
-  .home-collage {
-    height: auto;
-  }
+.home-collage .home-tile img,
+.home-collage .home-tile video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
 
-  .home-collage.layout-3,
-  .home-collage.layout-4,
-  .home-collage.layout-5,
-  .home-collage.layout-6 {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-  }
+/* Below the narrow breakpoint js/main.js renders a single stacked column
+   instead of justified rows — tiles keep their natural aspect ratio at
+   full width, and the section is allowed to scroll like normal content. */
+.home-collage.home-collage-narrow {
+  display: block;
+}
 
-  .home-collage .home-tile {
-    aspect-ratio: 4 / 3;
-    height: auto;
-  }
+.home-collage.home-collage-narrow .home-tile {
+  width: 100%;
+}
 
-  .home-collage .span-lead {
-    grid-column: auto;
-    grid-row: auto;
-  }
+.home-collage.home-collage-narrow .home-tile img,
+.home-collage.home-collage-narrow .home-tile video {
+  width: 100%;
+  height: auto;
+  object-fit: initial;
 }
 
 /* ==========================================================================
@@ -298,15 +278,6 @@ h1, h2, h3, p {
   width: 100%;
   height: auto;
   display: block;
-}
-
-/* Homepage collage tiles sit in fixed-size grid cells, so their media
-   crops to fill the cell instead of dictating its own height. */
-.home-tile img,
-.home-tile video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .collage-caption {

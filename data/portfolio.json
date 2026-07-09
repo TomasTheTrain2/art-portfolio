@@ -1,7 +1,7 @@
 [
   {
     "id": "b580117f-8374-48ba-9d76-e822ea7d1e7e",
-    "title": "Día De Los Muertos Copy",
+    "title": "Día De Los Muertos",
     "section": "films",
     "medium": null,
     "description": "",
@@ -41,7 +41,7 @@
   },
   {
     "id": "a7306bd7-0236-4e3a-9679-dfbfeadaa710",
-    "title": "000037220021",
+    "title": "Zion Valley at Sunrise",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -51,7 +51,7 @@
   },
   {
     "id": "21ba34d1-490a-4d2d-8134-6a36326970f2",
-    "title": "000037220022",
+    "title": "Zion Valley in Shadow",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -61,7 +61,7 @@
   },
   {
     "id": "8faab402-dd2c-49a8-89c2-ef13f7141dae",
-    "title": "000037220030",
+    "title": "Bryce Canyon",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -71,7 +71,7 @@
   },
   {
     "id": "48243b97-2639-4a8e-8e17-ddf4abd39623",
-    "title": "000037230007",
+    "title": "The Alps from Chamonix",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -81,7 +81,7 @@
   },
   {
     "id": "d3572417-191e-4940-b204-cd72a55c0cd2",
-    "title": "000037240003",
+    "title": "The Fin",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -91,7 +91,7 @@
   },
   {
     "id": "d420f721-7562-455b-b275-bdc9688e0fed",
-    "title": "000037240009",
+    "title": "On the Dunes",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -101,7 +101,7 @@
   },
   {
     "id": "ceaf5ebc-3bcf-4684-8cdb-3291f62765b5",
-    "title": "000037240011",
+    "title": "Dense Green Road",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -111,7 +111,7 @@
   },
   {
     "id": "009d6f7d-c51b-4d84-a624-0aa6d8e74c54",
-    "title": "000037240032",
+    "title": "Time for Hot Chocolate",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -121,23 +121,13 @@
   },
   {
     "id": "48b1e19b-16b2-414f-a8ad-7ba852aae728",
-    "title": "000037240034",
+    "title": "Mountain Maintenance",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
     "year": "",
     "file": "assets/visual-art/photography/000037240034.jpeg",
     "order": 8
-  },
-  {
-    "id": "760cf0d1-a0ad-4caf-8b0b-c4f6cec7c476",
-    "title": "000037240035",
-    "section": "visual-art",
-    "medium": "photography",
-    "description": "",
-    "year": "",
-    "file": "assets/visual-art/photography/000037240035.jpeg",
-    "order": 9
   },
   {
     "id": "447ee59b-f321-46e1-8f11-b7fd40d79eeb",
@@ -171,7 +161,7 @@
   },
   {
     "id": "17ee4da5-e3e7-493a-853e-3902fd067fe1",
-    "title": "IMG 2870",
+    "title": "Above a Sea of Clouds",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -181,7 +171,7 @@
   },
   {
     "id": "6c1543fb-2056-48c6-85cf-57f5c364e17f",
-    "title": "Photos from Bryce00086404",
+    "title": "The Way Down",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -191,7 +181,7 @@
   },
   {
     "id": "e7290476-99f3-421d-8d87-d3cff50357ec",
-    "title": "Photos from Bryce00086409",
+    "title": "The Valley Trees",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -200,18 +190,8 @@
     "order": 15
   },
   {
-    "id": "9d95ca14-4c75-4862-901f-7bdb6a4d8af7",
-    "title": "Photos from Bryce00086413",
-    "section": "visual-art",
-    "medium": "photography",
-    "description": "",
-    "year": "",
-    "file": "assets/visual-art/photography/photos-from-bryce00086413.jpg",
-    "order": 16
-  },
-  {
     "id": "163ed83b-aac5-46f4-a770-b38c205e9fe1",
-    "title": "Photos from Bryce00086417",
+    "title": "Bryce Canyon at Sunrise",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -251,7 +231,7 @@
   },
   {
     "id": "b1adc667-a3b6-4e2e-96c4-50d20f3ed3cc",
-    "title": "Photos from crater00086413",
+    "title": "The Peak",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -261,7 +241,7 @@
   },
   {
     "id": "f34e76c8-4df7-4ad6-8877-6009ff21e4c8",
-    "title": "Photos from crater00086428",
+    "title": "The View from Above",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -278,16 +258,6 @@
     "year": "",
     "file": "assets/visual-art/photography/photos-from-redwoods00086400.jpg",
     "order": 23
-  },
-  {
-    "id": "1309518c-0cd2-4bc7-8bf0-b03224da097c",
-    "title": "Photos from redwoods00086412",
-    "section": "visual-art",
-    "medium": "photography",
-    "description": "",
-    "year": "",
-    "file": "assets/visual-art/photography/photos-from-redwoods00086412.jpg",
-    "order": 24
   },
   {
     "id": "12992e2a-4c17-449a-acb1-3f8130856576",
@@ -311,7 +281,7 @@
   },
   {
     "id": "50621c3f-ec33-4321-af2c-00d50862c0fd",
-    "title": "2d5ff5b8 2546 4608 9691 77cd341c9541.1280x1280",
+    "title": "Barracuda Tryptic",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -321,7 +291,7 @@
   },
   {
     "id": "7bc622bf-9c7a-415e-afab-c05d0eec953a",
-    "title": "IMG 0945",
+    "title": "A Music Duet",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -331,7 +301,7 @@
   },
   {
     "id": "08a39be8-bd29-4618-8b49-1688cc5c4621",
-    "title": "IMG 1475",
+    "title": "Puffin",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -341,7 +311,7 @@
   },
   {
     "id": "67bab94a-55f4-4688-83fd-58ac9e88d1d8",
-    "title": "IMG 1477",
+    "title": "Penguin",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -351,7 +321,7 @@
   },
   {
     "id": "77751ab1-3c95-4b38-9eb3-ce6456e96e99",
-    "title": "IMG 1478",
+    "title": "Banana Slug",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -361,7 +331,7 @@
   },
   {
     "id": "03f9fb36-810b-4814-9683-2356ab287403",
-    "title": "IMG 1480",
+    "title": "Pain au Chocolat",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -371,7 +341,7 @@
   },
   {
     "id": "3c0a4cd8-7e15-4db5-99a1-d4d17d32af51",
-    "title": "IMG 1721",
+    "title": "Place de la Bastille from a Cafe",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -391,7 +361,7 @@
   },
   {
     "id": "c73a39f0-a3d8-444b-99e3-9e5ba96c503d",
-    "title": "IMG 2623",
+    "title": "Strasbourg Cathedral in the Fog",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -401,7 +371,7 @@
   },
   {
     "id": "a8fe412a-96ea-4bac-ae11-39848445cd90",
-    "title": "IMG 3209",
+    "title": "Watercolor Outfit Studies",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -411,7 +381,7 @@
   },
   {
     "id": "fc41c794-c7e2-4750-b7bb-eda4d505040f",
-    "title": "IMG 3553",
+    "title": "Family Portrait",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -421,7 +391,7 @@
   },
   {
     "id": "5b0b5628-c279-4020-8147-4f1a982b4073",
-    "title": "IMG 6095",
+    "title": "Mi Paella",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -431,7 +401,7 @@
   },
   {
     "id": "627cf482-1531-4a1a-bdac-cefe4a3ea7d5",
-    "title": "IMG 6177 2",
+    "title": "College Dessert",
     "section": "visual-art",
     "medium": "painting",
     "description": "",
@@ -441,7 +411,7 @@
   },
   {
     "id": "05f1d966-242e-4ae5-ab40-9d9cb598cf02",
-    "title": "3h Figure Drawing",
+    "title": "3H Figure Study",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -451,7 +421,7 @@
   },
   {
     "id": "19b73944-b3f7-463e-bec3-fc1e2d1866c7",
-    "title": "5. Robotic Head with Hand Tools",
+    "title": "Robotic Head with Hand Tools",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -461,7 +431,7 @@
   },
   {
     "id": "4b02858d-6aa7-4cc5-a12d-3e087373e136",
-    "title": "70495700946 83AA9598 6B7F 4E3B AAB0 E6970CDFE539",
+    "title": "Universal Map",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -471,7 +441,7 @@
   },
   {
     "id": "243bd40e-4133-4915-82d2-abdb3f6bba06",
-    "title": "E37F2D2A 1732 4937 AC4F F3F05CCB2418",
+    "title": "Rat Studies",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -481,7 +451,7 @@
   },
   {
     "id": "93011d93-fe10-470b-ad1e-8e2e0366f9fe",
-    "title": "F0D4EF85 96F7 4F40 A725 DF626D49DE0E",
+    "title": "Ibex Studies",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -491,7 +461,7 @@
   },
   {
     "id": "dc36d9a2-4e5b-4cf5-b949-cd15a2266047",
-    "title": "FB26BEE4 E415 4C29 AA0B 12A6A691BAC0",
+    "title": "Chicken Studies",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
