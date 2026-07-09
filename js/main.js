@@ -8,13 +8,13 @@ const MEDIUM_LABELS = {
 
 // Each layout's grid-template pairs with an exact tile count; layouts that
 // need one larger "lead" tile mark it via leadSpan (the .span-lead class
-// is added to the first rendered tile).
+// is added to the first rendered tile). Layouts always cover 3-6 tiles so
+// the collage reliably fills the space with multiple pieces.
 const COLLAGE_LAYOUTS = [
-  { count: 1, className: 'layout-1' },
-  { count: 2, className: 'layout-2' },
   { count: 3, className: 'layout-3', leadSpan: true },
   { count: 4, className: 'layout-4' },
   { count: 5, className: 'layout-5', leadSpan: true },
+  { count: 6, className: 'layout-6' },
 ];
 
 const VIDEO_EXT_RE = /\.(mp4|mov|m4v|webm)$/i;
