@@ -11,7 +11,7 @@
   },
   {
     "id": "0d52dc4d-e1b1-4a14-9b26-6122e95a7f80",
-    "title": "Script I Want to Hear Them (3)",
+    "title": "I Want to Hear Them",
     "section": "writing",
     "medium": null,
     "description": "",
@@ -21,7 +21,7 @@
   },
   {
     "id": "3b2f3481-7ffc-4312-bf16-a2cda97ddb27",
-    "title": "Script On the Crest (3)",
+    "title": "On the Crest",
     "section": "writing",
     "medium": null,
     "description": "",
@@ -201,7 +201,7 @@
   },
   {
     "id": "34840135-9604-4441-ac63-0a4ae3b3813e",
-    "title": "Photos from Bryce00086419",
+    "title": "Bryce Canyon in Shadow",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -211,7 +211,7 @@
   },
   {
     "id": "b217ef41-de7f-47ec-b24c-ff205d4ee81d",
-    "title": "Photos from Bryce00086421",
+    "title": "Bryce Canyon View from the Top",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -221,7 +221,7 @@
   },
   {
     "id": "a0bb7118-3d66-45d5-bd42-35f703ece811",
-    "title": "Photos from crater00086400",
+    "title": "The Road next to the Crater",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -241,7 +241,7 @@
   },
   {
     "id": "f34e76c8-4df7-4ad6-8877-6009ff21e4c8",
-    "title": "The View from Above",
+    "title": "The View from the Edge",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -251,7 +251,7 @@
   },
   {
     "id": "3420d907-6dc7-4324-8a00-41f79b31552b",
-    "title": "Photos from redwoods00086400",
+    "title": "Path in the Wods",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -261,7 +261,7 @@
   },
   {
     "id": "12992e2a-4c17-449a-acb1-3f8130856576",
-    "title": "Photos from redwoods00086414",
+    "title": "The Shrouded Bridge",
     "section": "visual-art",
     "medium": "photography",
     "description": "",
@@ -471,13 +471,13 @@
   },
   {
     "id": "d717cb75-5438-4c36-a980-8a5259c1ac81",
-    "title": "FC01C670 0A57 4EA1 92BB 0E18D86B9F47",
+    "title": "Meat Industry",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/fc01c670-0a57-4ea1-92bb-0e18d86b9f47.jpg",
-    "order": 6
+    "order": 7
   },
   {
     "id": "689c4791-8d71-45b1-858c-a6a5f3e226f8",
@@ -487,17 +487,17 @@
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/horse-study.jpg",
-    "order": 7
+    "order": 8
   },
   {
     "id": "b6a35ad2-f5a2-44f2-b183-f20c43dd0ef5",
-    "title": "IMG 0690",
+    "title": "Mi Alebrije",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/img-0690.jpeg",
-    "order": 8
+    "order": 9
   },
   {
     "id": "11b62fe4-5202-451c-bb32-cf49a24cd572",
@@ -507,31 +507,31 @@
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/img-0970.jpeg",
-    "order": 9
+    "order": 10
   },
   {
     "id": "abd95851-656b-444e-af07-560a73e9a4b7",
-    "title": "IMG 2181",
+    "title": "Hold It Down",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/img-2181.jpeg",
-    "order": 10
+    "order": 11
   },
   {
     "id": "858a32b0-4eef-4f96-8cdd-3aeaabdf048f",
-    "title": "IMG 3794",
+    "title": "Robot Conductor",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
     "year": "",
     "file": "assets/visual-art/drawing/img-3794.jpeg",
-    "order": 11
+    "order": 6
   },
   {
     "id": "283b65e4-fd12-43ec-aae7-38134c72493a",
-    "title": "IMG 3795",
+    "title": "Fish Conductor",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -541,7 +541,7 @@
   },
   {
     "id": "45f1c82d-43de-429f-8353-fcf0d0d30a56",
-    "title": "IMG 4989",
+    "title": "The Streets of Prague",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -551,7 +551,7 @@
   },
   {
     "id": "cf5da742-555c-43f4-b7b4-b304d9a32050",
-    "title": "IMG 5003",
+    "title": "Female 10 min Studies",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -561,7 +561,7 @@
   },
   {
     "id": "b70096c5-c9a4-4df3-95b0-245afe874ce7",
-    "title": "IMG 5082",
+    "title": "Celestial",
     "section": "visual-art",
     "medium": "drawing",
     "description": "",
@@ -611,7 +611,7 @@
   },
   {
     "id": "ee57db19-ffc7-461b-a3b1-92b0372b231a",
-    "title": "IMG 0517",
+    "title": "Sebastian",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -621,7 +621,7 @@
   },
   {
     "id": "1398bb91-87ad-4808-befa-8326aee6278f",
-    "title": "IMG 1040",
+    "title": "Amber Character Sheet",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -661,7 +661,7 @@
   },
   {
     "id": "21ab6bd6-3d76-4b0f-91f5-03e71f8bba66",
-    "title": "Untitled Artwork 6 copy 2",
+    "title": "Mabel's Dragon",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -671,7 +671,7 @@
   },
   {
     "id": "0daa8eae-6151-4b35-98c3-457aea379a56",
-    "title": "Untitled Artwork 6 copy 3",
+    "title": "You Like Fire!?",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -681,7 +681,7 @@
   },
   {
     "id": "a257f95c-b03a-4800-9252-506db55f9689",
-    "title": "Untitled Artwork 6 copy 6",
+    "title": "Headache",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -691,7 +691,7 @@
   },
   {
     "id": "7dba0aef-5602-44e5-be71-385844479c05",
-    "title": "Untitled Artwork 6 copy",
+    "title": "Boo!",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -721,7 +721,7 @@
   },
   {
     "id": "e4c5c4dc-419d-435c-9984-18323b97e448",
-    "title": "Untitled Artwork",
+    "title": "Xavage Barracuda",
     "section": "visual-art",
     "medium": "digital",
     "description": "",
@@ -731,7 +731,7 @@
   },
   {
     "id": "a3ca1b80-21b3-4145-b6f4-78870283b811",
-    "title": "IMG 2679",
+    "title": "Affiche Cover",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
@@ -741,7 +741,7 @@
   },
   {
     "id": "d5501e22-7c23-4f53-a9b5-f644c6aa441b",
-    "title": "Untitled Artwork 6 copy 4",
+    "title": "Spring Concert Poster",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
@@ -751,7 +751,7 @@
   },
   {
     "id": "3d3ff968-d201-46ec-bd9b-05edfa3eee9d",
-    "title": "Untitled Artwork 6 copy 5",
+    "title": "Screenings Poster",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
@@ -761,7 +761,7 @@
   },
   {
     "id": "4fa5364c-58cf-401c-aa28-ac8b76ef77f7",
-    "title": "Untitled Artwork 6 copy",
+    "title": "Cinema Brawl Poster",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
@@ -771,7 +771,7 @@
   },
   {
     "id": "271d7520-a235-444c-aa2e-b2ca0fd3c7fc",
-    "title": "Untitled Artwork 6",
+    "title": "Prague Screening Poster",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
@@ -781,7 +781,7 @@
   },
   {
     "id": "2bbee9b3-4663-4a9d-8818-b63aadc891ef",
-    "title": "Untitled Artwork 7",
+    "title": "Pops Concert Poster",
     "section": "visual-art",
     "medium": "graphic-design",
     "description": "",
