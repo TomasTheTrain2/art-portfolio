@@ -153,12 +153,14 @@ function groupedEntries() {
     .map((key) => ({ key, label: groupLabel(key), items: byKey.get(key) }));
 }
 
-function entryCardHtml(entry, position, groupSize) {
+function entryCardHtml(entry, position) {
   return `
     <div class="entry-card" data-id="${escapeHtml(entry.id)}">
-      <div class="reorder-controls">
-        <button type="button" class="reorder-btn move-up-btn" ${position === 0 ? 'disabled' : ''} title="Move up" aria-label="Move up">&uarr;</button>
-        <button type="button" class="reorder-btn move-down-btn" ${position === groupSize - 1 ? 'disabled' : ''} title="Move down" aria-label="Move down">&darr;</button>
+      <div class="position-field">
+        <label>
+          Position
+          <input type="number" class="position-input" min="1" step="1" value="${position + 1}">
+        </label>
       </div>
       ${thumbHtml(entry)}
       <div class="entry-fields">
@@ -190,11 +192,18 @@ function renderEntries() {
 
   const groups = groupedEntries();
   list.innerHTML = groups.map((group) => `
-    <div class="entry-group">
-      <h3 class="entry-group-label">${escapeHtml(group.label)}</h3>
-      ${group.items.map((entry, i) => entryCardHtml(entry, i, group.items.length)).join('')}
+    <div class="entry-group" data-group-key="${escapeHtml(group.key)}">
+      <div class="entry-group-header">
+        <h3 class="entry-group-label">${escapeHtml(group.label)}</h3>
+        <button type="button" class="secondary save-order-btn">Save Order</button>
+      </div>
+      ${group.items.map((entry, i) => entryCardHtml(entry, i)).join('')}
     </div>
   `).join('');
+
+  list.querySelectorAll('.entry-group').forEach((groupEl) => {
+    groupEl.querySelector('.save-order-btn').addEventListener('click', () => saveGroupOrder(groupEl));
+  });
 
   list.querySelectorAll('.entry-card').forEach((card) => {
     const id = card.dataset.id;
@@ -207,8 +216,6 @@ function renderEntries() {
 
     card.querySelector('.save-btn').addEventListener('click', () => saveEntry(id, card));
     card.querySelector('.delete-btn').addEventListener('click', () => deleteEntry(id));
-    card.querySelector('.move-up-btn').addEventListener('click', () => moveEntry(id, 'up'));
-    card.querySelector('.move-down-btn').addEventListener('click', () => moveEntry(id, 'down'));
   });
 }
 
@@ -224,27 +231,38 @@ async function updateOrder(id, order) {
   }
 }
 
-async function moveEntry(id, direction) {
-  const entry = entries.find((e) => e.id === id);
-  if (!entry) return;
+// Reads every position number currently typed into this group's cards,
+// re-sorts by that number (ties broken by each card's current on-screen
+// order, so untouched entries keep their relative place), and reassigns
+// clean sequential order values (0, 1, 2, ...) rather than saving the
+// typed numbers verbatim — typed values can have gaps or duplicates, but
+// the stored order field should always be a clean sequence.
+async function saveGroupOrder(groupEl) {
+  const btn = groupEl.querySelector('.save-order-btn');
+  const cards = [...groupEl.querySelectorAll('.entry-card')];
 
-  const group = entries
-    .filter((e) => groupKey(e) === groupKey(entry))
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  const index = group.findIndex((e) => e.id === id);
-  const swapIndex = direction === 'up' ? index - 1 : index + 1;
-  if (swapIndex < 0 || swapIndex >= group.length) return;
+  const items = cards.map((card, originalIndex) => {
+    const id = card.dataset.id;
+    const entry = entries.find((e) => e.id === id);
+    const raw = parseInt(card.querySelector('.position-input').value, 10);
+    const typedPosition = Number.isFinite(raw) ? raw : originalIndex + 1;
+    return { entry, typedPosition, originalIndex };
+  });
 
-  const neighbor = group[swapIndex];
-  const entryOrder = entry.order ?? 0;
-  const neighborOrder = neighbor.order ?? 0;
+  items.sort((a, b) => a.typedPosition - b.typedPosition || a.originalIndex - b.originalIndex);
 
+  btn.disabled = true;
   try {
-    await updateOrder(entry.id, neighborOrder);
-    await updateOrder(neighbor.id, entryOrder);
+    await Promise.all(items.map((item, newOrder) => {
+      if (item.entry.order === newOrder) return null;
+      return updateOrder(item.entry.id, newOrder);
+    }));
   } catch (err) {
-    alert('Reorder failed: ' + err.message);
+    alert('Save order failed: ' + err.message);
+  } finally {
+    btn.disabled = false;
   }
+
   await loadEntries();
 }
 

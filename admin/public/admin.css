@@ -147,13 +147,26 @@ button.danger:hover {
   margin-bottom: 1.5rem;
 }
 
+.entry-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.6rem;
+}
+
 .entry-group-label {
   font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--muted);
-  margin: 0 0 0.6rem;
+  margin: 0;
+}
+
+.save-order-btn {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
 }
 
 .entry-group .entry-card {
@@ -174,29 +187,22 @@ button.danger:hover {
   padding: 0.85rem;
 }
 
-.reorder-controls {
+.position-field {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
 }
 
-.reorder-btn {
-  padding: 0.3rem 0.5rem;
-  font-size: 0.9rem;
-  line-height: 1;
-  background: transparent;
-  color: var(--ink);
+.position-input {
+  width: 3rem;
+  padding: 0.4rem 0.3rem;
+  font: inherit;
+  text-align: center;
   border: 1px solid var(--border);
-  align-self: stretch;
-}
-
-.reorder-btn:hover:not(:disabled) {
-  background: #efefe9;
-}
-
-.reorder-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
+  border-radius: 4px;
 }
 
 .entry-thumb {
